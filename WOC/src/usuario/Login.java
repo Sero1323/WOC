@@ -191,20 +191,19 @@ public class Login extends javax.swing.JFrame {
         try {
             Connection conexion = DriverManager.getConnection("jdbc:sqlite:juegobd");
             Statement busqueda = conexion.createStatement();
-            ResultSet datos = busqueda.executeQuery("SELECT idUsuario, tipo " +
-                                                    "FROM Usuario " +
-                                                    "WHERE nombre = " + txtUsuario.getText() + " AND " +
-                                                          "contrasena = " + txtContrasena.getText() + ";");
-            if (datos.first()) {
-                int idUsuario = datos.getInt("idUsuario");
-                String tipo = datos.getString("tipo");
-                busqueda = conexion.createStatement();
-                datos = busqueda.executeQuery("SELECT nombre, archivo" +
-                                              "FROM Partida" +
-                                              "WHERE idUsuario_fk = " + idUsuario);
-                while (datos.next()) {
-                    String nombre = datos.getString("nombre");
-                    String archivo = datos.getString("archivo");
+            ResultSet datos = busqueda.executeQuery("SELECT idUsuario, nombre, contrasena, tipo " +
+                                                    "FROM Usuario");
+            while (datos.next()) {
+                if (datos.getString("nombre").equals(txtUsuario.getText()) && datos.getString("contrasena").equals(txtContrasena.getText())) {
+                    int idUsuario = datos.getInt("idUsuario");
+                    String tipo = datos.getString("tipo");
+                    busqueda = conexion.createStatement();
+                    datos = busqueda.executeQuery("SELECT nombre " +
+                                                  "FROM Partida " +
+                                                  "WHERE idUsuario_fk = " + idUsuario);
+                    while (datos.next()) {
+                        String archivo = datos.getString("nombre");
+                    }
                 }
             }
         } catch (SQLException ex) {
