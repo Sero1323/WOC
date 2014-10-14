@@ -20,14 +20,14 @@ import woc.Wall;
  * @author Sergio
  */
 public class BuildingsFrame extends javax.swing.JFrame {
-    private final NewJFrame g;
+    private final InGameFrame g;
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form InGameFrame
      * @param g
      */
 
-    public BuildingsFrame(NewJFrame g) {
+    public BuildingsFrame(InGameFrame g) {
         this.setVisible(false);
         this.setTitle("Buildings");
         initComponents();
