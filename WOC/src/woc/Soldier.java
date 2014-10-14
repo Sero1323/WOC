@@ -6,6 +6,7 @@
 
 package woc;
 
+import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
 
 /**
@@ -25,6 +26,7 @@ public class Soldier extends Thread implements Defense{
     private int level;
     private int movementSpeed;
     private boolean terrestrial;
+    private BufferedImage[] frames;
     private ArmyCamp camp;
     private Castle house;
     private Celd position;
@@ -116,4 +118,18 @@ public class Soldier extends Thread implements Defense{
     public boolean isTerrestrial() {
         return this.terrestrial;
     }
+
+    public BufferedImage[] getFrames() {
+        return frames;
+    }
+
+    public void setFrames(BufferedImage[] frames) {
+        this.frames = frames;
+    }
+    
+    @Override
+    public String toString() {
+        return "Soldier{" + "name=" + name + ", id=" + id + ", posX=" + posX + ", posY=" + posY + ", currentHP=" + currentHP + ", maxHP=" + maxHP + ", size=" + size + ", attackDamage=" + attackDamage + ", attackSpeed=" + attackSpeed + ", level=" + level + ", movementSpeed=" + movementSpeed + ", terrestrial=" + terrestrial + ", camp=" + camp + ", house=" + house + ", position=" + position + '}';
+    }
+    
 }

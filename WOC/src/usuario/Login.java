@@ -4,11 +4,10 @@
  */
 package usuario;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import data.GameFile;
+import graphic_woc.ConfigurationFrame;
+import logic.Match;
+import logic.User;
 
 /**
  *
@@ -22,29 +21,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-    
-    private void iniciar() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            try (Connection con = DriverManager.getConnection("jdbc:sqlite:juegobd")) {
-                Statement stmt = con.createStatement();
-                String informacion = "CREATE TABLE Partida ( \n" +
-                        "    idPuesto     INTEGER PRIMARY KEY ASC AUTOINCREMENT\n" +
-                        "                         NOT NULL\n" +
-                        "                         UNIQUE,\n" +
-                        "    nombre       TEXT    NOT NULL\n" +
-                        "                         UNIQUE,\n" +
-                        "    idUsuario_fk INTEGER NOT NULL\n" +
-                        "                         REFERENCES Usuario ( idUsuario ) \n" +
-                        ");";
-                stmt.executeQuery(informacion);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        } catch (Exception ex) {
-            
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,15 +33,18 @@ public class Login extends javax.swing.JFrame {
 
         lblTitulo = new javax.swing.JLabel();
         pnlDatos = new javax.swing.JPanel();
-        txtContrasena = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         lblContrasena = new javax.swing.JLabel();
+        txtContrasena = new javax.swing.JPasswordField();
+        lblUsuarioError = new javax.swing.JLabel();
+        lblContrasenaError = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnIngresar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Autenticacion");
         setMinimumSize(new java.awt.Dimension(500, 350));
         setName("Autenticacion"); // NOI18N
         setResizable(false);
@@ -79,20 +58,35 @@ public class Login extends javax.swing.JFrame {
 
         lblContrasena.setText("Contrasena");
 
+        lblUsuarioError.setForeground(new java.awt.Color(255, 0, 0));
+        lblUsuarioError.setText("jLabel1");
+
+        lblContrasenaError.setForeground(new java.awt.Color(255, 0, 0));
+        lblContrasenaError.setText("jLabel2");
+
         javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
         pnlDatos.setLayout(pnlDatosLayout);
         pnlDatosLayout.setHorizontalGroup(
             pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosLayout.createSequentialGroup()
+            .addGroup(pnlDatosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblContrasena)
-                    .addComponent(lblNombre))
-                .addGap(24, 24, 24)
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosLayout.createSequentialGroup()
+                        .addComponent(lblNombre)
+                        .addGap(44, 44, 44)
+                        .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuarioError)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlDatosLayout.createSequentialGroup()
+                        .addComponent(lblContrasena)
+                        .addGap(24, 24, 24)
+                        .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlDatosLayout.createSequentialGroup()
+                                .addComponent(lblContrasenaError)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtContrasena))))
+                .addContainerGap())
         );
         pnlDatosLayout.setVerticalGroup(
             pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,11 +95,15 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuarioError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContrasena)
                     .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblContrasenaError)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         btnIngresar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -172,11 +170,11 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(50, 50, 50)
-                .addComponent(pnlDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
+                .addComponent(pnlDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -184,31 +182,24 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (Exception ex) {
-        }
-        try {
-            Connection conexion = DriverManager.getConnection("jdbc:sqlite:juegobd");
-            Statement busqueda = conexion.createStatement();
-            ResultSet datos = busqueda.executeQuery("SELECT idUsuario, nombre, contrasena, tipo " +
-                                                    "FROM Usuario");
-            while (datos.next()) {
-                if (datos.getString("nombre").equals(txtUsuario.getText()) && datos.getString("contrasena").equals(txtContrasena.getText())) {
-                    int idUsuario = datos.getInt("idUsuario");
-                    String tipo = datos.getString("tipo");
-                    busqueda = conexion.createStatement();
-                    datos = busqueda.executeQuery("SELECT nombre " +
-                                                  "FROM Partida " +
-                                                  "WHERE idUsuario_fk = " + idUsuario);
-                    while (datos.next()) {
-                        String archivo = datos.getString("nombre");
-                    }
-                }
+        String label = txtUsuario.getText();
+        String pass = new String(txtContrasena.getPassword());
+        if (!label.equals("") && !pass.equals("")) {
+            UserInfo information = User.getManager().login(label, pass);
+            if (information != null) {
+                information.setGames(GameFile.loadMatches(Match.getManager().plays(information.getIdUsuario())));
+                ConfigurationFrame.initUser(information);
+                ConfigurationFrame configuration = new ConfigurationFrame();
+                configuration.setVisible(true);
+                txtUsuario.setText("");
+                txtContrasena.setText("");
+                lblUsuarioError.setText("");
+                lblContrasenaError.setText("");
+                dispose();
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
+        lblUsuarioError.setText("Usuario incorrecto");
+        lblContrasenaError.setText("Contrasena incorrecta");
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -255,10 +246,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblContrasenaError;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuarioError;
     private javax.swing.JPanel pnlDatos;
-    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

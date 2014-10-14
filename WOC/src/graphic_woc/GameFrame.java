@@ -7,6 +7,7 @@
 package graphic_woc;
 
 import javax.swing.ImageIcon;
+import usuario.UserInfo;
 import woc.ArmyCamp;
 import woc.Building;
 import woc.Castle;
@@ -23,6 +24,7 @@ public class GameFrame extends javax.swing.JFrame {
     Celd lastselect = new Celd();
     Building newBuilding;
     BuildingsFrame b;
+    UserInfo propiedades;
 
     public GameFrame() {
         c = new Castle("asd","asd","asd");
@@ -35,9 +37,8 @@ public class GameFrame extends javax.swing.JFrame {
         defenseButton.setBorderPainted(false);
         addLanes();
         this.pack();
-        
-   
     }
+    
     private javax.swing.JButton defenseButton;
     public void addButtons()
     {
@@ -66,7 +67,7 @@ public class GameFrame extends javax.swing.JFrame {
 
     }
     
-        private void defenseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void defenseButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         this.b.setVisible(true);
     }            
     /**
@@ -80,9 +81,12 @@ public class GameFrame extends javax.swing.JFrame {
 
         pnlConfiguracion = new javax.swing.JPanel();
         pnlOpciones = new javax.swing.JPanel();
-        btnSalir = new javax.swing.JButton();
+        btnPartida = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPartidas = new javax.swing.JList();
+        lblUsuario = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
+        btnJugar = new javax.swing.JButton();
         pnlOperacion = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,47 +95,72 @@ public class GameFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Partidas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+        pnlOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Partidas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 22))); // NOI18N
         pnlOpciones.setMinimumSize(new java.awt.Dimension(200, 150));
         pnlOpciones.setPreferredSize(new java.awt.Dimension(300, 275));
 
-        btnSalir.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.setMaximumSize(new java.awt.Dimension(100, 75));
-        btnSalir.setMinimumSize(new java.awt.Dimension(100, 75));
-        btnSalir.setPreferredSize(new java.awt.Dimension(150, 75));
+        btnPartida.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnPartida.setText("Nueva partida");
+        btnPartida.setMaximumSize(new java.awt.Dimension(100, 75));
+        btnPartida.setMinimumSize(new java.awt.Dimension(100, 75));
+        btnPartida.setPreferredSize(new java.awt.Dimension(150, 75));
 
+        lstPartidas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lstPartidas.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lstPartidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(lstPartidas);
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        lblUsuario.setText("Usuario");
+        lblUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Bienvenido"));
+
+        btnSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnSalir.setText("Salir");
+
+        btnJugar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnJugar.setText("Jugar");
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlOpcionesLayout = new javax.swing.GroupLayout(pnlOpciones);
         pnlOpciones.setLayout(pnlOpcionesLayout);
         pnlOpcionesLayout.setHorizontalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOpcionesLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(pnlOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPartida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlOpcionesLayout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnJugar)))
                 .addContainerGap())
         );
         pnlOpcionesLayout.setVerticalGroup(
             pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOpcionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(btnJugar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        pnlOperacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+        pnlOperacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 22))); // NOI18N
 
         javax.swing.GroupLayout pnlOperacionLayout = new javax.swing.GroupLayout(pnlOperacion);
         pnlOperacion.setLayout(pnlOperacionLayout);
@@ -141,7 +170,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         pnlOperacionLayout.setVerticalGroup(
             pnlOperacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlConfiguracionLayout = new javax.swing.GroupLayout(pnlConfiguracion);
@@ -160,8 +189,8 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(pnlConfiguracionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlConfiguracionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
-                    .addComponent(pnlOperacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlOperacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -185,10 +214,17 @@ public class GameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        pnlConfiguracion.setVisible(false);
+    }//GEN-LAST:event_btnJugarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnJugar;
+    private javax.swing.JButton btnPartida;
     private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JList lstPartidas;
     private javax.swing.JPanel pnlConfiguracion;
     private javax.swing.JPanel pnlOpciones;

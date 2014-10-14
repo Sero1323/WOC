@@ -25,8 +25,8 @@ import javax.swing.JPanel;
 public class Frame extends JFrame implements Runnable, KeyListener  {
 
 
-    private final int WIDTH = 1366;
-    private final int HEIGHT = 730;
+    private final int WIDTH = 1280;
+    private final int HEIGHT = 720;
     Thread gameloop;
     
     int keyCode;
