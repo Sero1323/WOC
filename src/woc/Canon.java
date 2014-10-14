@@ -23,13 +23,13 @@ public class Canon extends Building{
     private boolean anytarget;
 
     public Canon(int range, int attackDamage, int attackSpeed, boolean terrestrial, boolean anytarget, String name, int id, int posX, int posY, int currentHP, int maxHP, int level, Castle house) {
-        super(name, id, posX, posY, 1, 1, currentHP, maxHP, level, house);
+        super(name, id, posX, posY, 2, 2, currentHP, maxHP, level, house);
         this.range = range;
         this.attackDamage = attackDamage;
         this.attackSpeed = attackSpeed;
         this.terrestrial = terrestrial;
         this.anytarget = anytarget;
-        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/ArmyCamp.png").getImage());
+        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/Canon.png").getImage());
         
     }
 

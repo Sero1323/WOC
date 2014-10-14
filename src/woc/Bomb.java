@@ -18,9 +18,9 @@ public class Bomb extends Building{
     
 
     public Bomb(String name, int id, int posX, int posY, int sizeX, int sizeY, int currentHP, int maxHP, int level, Castle house, int damage) {
-        super(name, id, posX, posY, sizeX, sizeY, currentHP, maxHP, level, house);
+        super(name, id, posX, posY, 1, 1, currentHP, maxHP, level, house);
         this.damage = damage;
-        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/Canon.png").getImage());
+        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/Bomb.png").getImage());
     }
 
     public Bomb() {

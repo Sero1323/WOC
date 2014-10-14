@@ -37,8 +37,14 @@ public class ImagePane extends JPanel {
     setSize(size);
     setLayout(null);
   }
+  public void clear()
+  {
+    //img.getGraphics().clearRect(0, 0, img.getHeight(null), img.getWidth(null));
+  }
   @Override
   public void paintComponent(Graphics g) {
+    //g.clearRect(0, 0, img.getHeight(null), img.getWidth(null));
+    g.drawImage(new ImageIcon("src/Buildings_IMG/ground.jpg").getImage(), 0, 0, null);
     g.drawImage(img, 0, 0, null);
   }
 

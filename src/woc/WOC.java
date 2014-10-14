@@ -7,7 +7,6 @@
 
 package woc;
 
-import graphic_woc.BuildingsFrame;
 import graphic_woc.GameFrame;
 
 /**

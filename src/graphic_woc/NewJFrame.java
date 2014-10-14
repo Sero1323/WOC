@@ -16,7 +16,7 @@ import woc.Celd;
  * @author Sergio
  */
 public class NewJFrame extends javax.swing.JFrame {
-    Castle c = new Castle("asd","asd","asd");
+    Castle castle = new Castle("asd","asd","asd");
     ImageIcon ground = new ImageIcon("src/Buildings_IMG/ground.jpg");
     ImageIcon ground_select = new ImageIcon("src/Buildings_IMG/ground_select.jpg");
     Celd lastselect = new Celd();
@@ -24,7 +24,7 @@ public class NewJFrame extends javax.swing.JFrame {
     BuildingsFrame b;
 
     public NewJFrame() {
-        c = new Castle("asd","asd","asd");
+        castle = new Castle("asd","asd","asd");
         this.b = new BuildingsFrame(this);
         initComponents();
         jButton1.setIcon(new ImageIcon("src/Buildings_IMG/Defense_btn.png"));
@@ -41,6 +41,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 768));
+        setResizable(false);
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +79,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
   
     /**
-     * @param args the command line arguments
+     * @param args the castleommand line arguments
      */
     public static void main(String args[]) {
 
@@ -94,24 +96,24 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void addLanes()
     {
-        for(int i=0;i<c.getSizeY();i++)
-            for(int j=0;j<c.getSizeX();j++)
+        for(int i=0;i<castle.getSizeY();i++)
+            for(int j=0;j<castle.getSizeX();j++)
             {
-                c.getCelds()[i][j]= new Celd(ground.getImage());
-                c.getCelds()[i][j].panel.setLocation(48*j, 48*i);
-                c.getCelds()[i][j].panel.setSize(48, 48);
-                c.getCelds()[i][j].panel.setVisible(true);
-                c.getCelds()[i][j].panel.setName(String.valueOf(i));
-                this.getContentPane().add(c.getCelds()[i][j].panel);
+                castle.getCelds()[i][j]= new Celd(ground.getImage(),j,i);
+                castle.getCelds()[i][j].panel.setLocation(48*j, 48*i);
+                castle.getCelds()[i][j].panel.setSize(48, 48);
+                castle.getCelds()[i][j].panel.setVisible(true);
+                castle.getCelds()[i][j].panel.setName(String.valueOf(i));
+                this.getContentPane().add(castle.getCelds()[i][j].panel);
                 this.pack();
                 final int a = i;
                 final int b = j;
-                c.getCelds()[i][j].panel.addMouseListener(new java.awt.event.MouseAdapter()
+                castle.getCelds()[i][j].panel.addMouseListener(new java.awt.event.MouseAdapter()
                 {
                 @Override
                     public void mouseClicked(java.awt.event.MouseEvent evt)
                     {
-                        select(c.getCelds()[a][b]);
+                        select(castle.getCelds()[a][b]);
                     }
                 });    
             }
@@ -121,11 +123,12 @@ public class NewJFrame extends javax.swing.JFrame {
         {
             addNewBuilding(c);
             c = lastselect;
+            return;
         }
         lastselect.panel.select = false;
         lastselect.panel.img = ground.getImage();
         lastselect.panel.repaint();
-        lastselect = new Celd();
+        
         if (c != lastselect)
         {
             c.panel.select = !c.panel.select;
@@ -133,11 +136,28 @@ public class NewJFrame extends javax.swing.JFrame {
             c.panel.repaint();
             lastselect = c;
             
-        }
+        }else
+            lastselect = new Celd();
             
     }
 
     private void addNewBuilding(Celd c) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(castle.getCelds()[c.x][c.y].fill == null && castle.getCelds()[c.x+1][c.y].fill == null && castle.getCelds()[c.x][c.y+1].fill == null && castle.getCelds()[c.x+1][c.y+1].fill == null)
+        {
+            Building newBuildingtmp = newBuilding;
+            newBuilding = null;
+            newBuildingtmp.panel.setLocation(48*c.x, 48*c.y);
+            if(newBuildingtmp.getSizeX()== 2)
+                newBuildingtmp.panel.setSize(96, 96);
+            else
+                newBuildingtmp.panel.setSize(48, 48);
+            
+            
+            newBuildingtmp.panel.setVisible(true);
+            this.getContentPane().add(newBuildingtmp.panel);
+            
+            newBuildingtmp.panel.repaint();
+            this.pack();
+        }
     }
 }

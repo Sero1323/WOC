@@ -21,7 +21,7 @@ public class ArmyCamp extends Building{
 
     public ArmyCamp(String name, int id, int posX, int posY, int sizeX, int sizeY, int currentHP, int maxHP, int level, Castle house) {
         super(name, id, posX, posY, 2, 2, currentHP, maxHP, level, house);
-        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/ArrowTower.png").getImage());
+        this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/ArmyCamp.png").getImage());
         
     }
 
