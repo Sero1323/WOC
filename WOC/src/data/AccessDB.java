@@ -68,12 +68,12 @@ public class AccessDB {
         return false;
     }
     
-    public boolean edit(String changes) {
+    public boolean edit(String changes, String condition) {
         Connection db = startQuery();
         Statement edit = null;
         try {
             edit = db.createStatement();
-            edit.executeUpdate("UPDATE " + table + " SET " + changes);
+            edit.executeUpdate("UPDATE " + table + " SET " + changes + " " + condition);
             edit.close();
             db.close();
             return true;
@@ -91,7 +91,7 @@ public class AccessDB {
         Statement remove = null;
         try {
             remove = db.createStatement();
-            remove.executeUpdate("DELETE " + table + " WHERE " + filter);
+            remove.executeUpdate("DELETE " + table + " " + filter);
             remove.close();
             db.close();
             return true;

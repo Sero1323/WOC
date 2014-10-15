@@ -4,7 +4,6 @@
  */
 package usuario;
 
-import data.GameFile;
 import graphic_woc.ConfigurationFrame;
 import logic.Match;
 import logic.User;
@@ -59,10 +58,10 @@ public class Login extends javax.swing.JFrame {
         lblContrasena.setText("Contrasena");
 
         lblUsuarioError.setForeground(new java.awt.Color(255, 0, 0));
-        lblUsuarioError.setText("jLabel1");
+        lblUsuarioError.setText(".");
 
         lblContrasenaError.setForeground(new java.awt.Color(255, 0, 0));
-        lblContrasenaError.setText("jLabel2");
+        lblContrasenaError.setText(".");
 
         javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
         pnlDatos.setLayout(pnlDatosLayout);
@@ -187,7 +186,7 @@ public class Login extends javax.swing.JFrame {
         if (!label.equals("") && !pass.equals("")) {
             UserInfo information = User.getManager().login(label, pass);
             if (information != null) {
-                information.setGames(GameFile.loadMatches(Match.getManager().plays(information.getIdUsuario())));
+                information.setGames(Match.getManager().find(information.getIdUsuario() + ""));
                 ConfigurationFrame.initUser(information);
                 ConfigurationFrame configuration = new ConfigurationFrame();
                 configuration.setVisible(true);
