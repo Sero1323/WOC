@@ -53,10 +53,10 @@ public class ArmyCamp extends Building{
         switch (type)
         {
             case 0:
-                s = new Soldier("Warrior", soldiers.size(), 100, 100, 1, 25, 100, 100,1,true,this,this.house);
+                s = new Soldier("Soldier", soldiers.size(), 100, 100, 1, 25, 100, 100,1,true,this,this.house,new ImageIcon("src/Buildings_IMG/Soldier_ShortRange_Mini.gif"));
                 break;
             default:
-                s = new Soldier("Warrior", soldiers.size(), 100, 100, 1, 25, 100, 100,1,true,this,this.house);
+                s = new Soldier("Warrior", soldiers.size(), 100, 100, 1, 25, 100, 100,1,true,this,this.house,new ImageIcon("src/Buildings_IMG/Soldier_ShortRange_Mini.gif"));
                 break;
         }
         if (warriorsNumb + s.getSize() <= maxWarriors)
@@ -66,7 +66,12 @@ public class ArmyCamp extends Building{
         }
         else
             return false;
-        
+        s.label.setLocation((int) (48*c.x -48+ (Math.random() * 72)), (int) (48*c.y+ (Math.random() * 24)));
+        s.label.setSize(27, 25);
+        s.label.setVisible(true);
+        s.label.setRequestFocusEnabled(true);
+        this.house.frame.getContentPane().add(s.label,0);
+        s.label.repaint();
         return true;
         
     }

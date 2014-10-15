@@ -18,10 +18,10 @@ import woc.Celd;
  * @author Sergio
  */
 public class GameFrame extends javax.swing.JFrame {
-    Castle c = new Castle("asd","asd","asd");
+    //Castle c = new Castle("asd","asd","asd");
 
     public GameFrame() {
-        c = new Castle("asd","asd","asd");
+        //c = new Castle("asd","asd","asd");
         initComponents();
         this.pack();
     }
@@ -173,6 +173,9 @@ public class GameFrame extends javax.swing.JFrame {
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         pnlConfiguracion.setVisible(false);
+        this.setVisible(false);
+        InGameFrame i = new InGameFrame();
+        i.setVisible(true);
     }//GEN-LAST:event_btnJugarActionPerformed
 
 

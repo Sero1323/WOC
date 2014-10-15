@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Sergio
  */
-public class Celd {
+public class Celd implements java.io.Serializable{
   public boolean select;
   public ImagePane panel;
   ArrayList<Defense> content;

@@ -8,6 +8,9 @@ package woc;
 
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -28,10 +31,11 @@ public class Soldier extends Thread implements Defense{
     private boolean terrestrial;
     private BufferedImage[] frames;
     private ArmyCamp camp;
-    private Castle house;
+    public Castle house;
     private Celd position;
+    JLabel label;
     
-    public Soldier(String name, int id, int currentHP, int maxHP, int size, int attackDamage, int attckSpeed, int movementSpeed, int level, boolean terrestrial, ArmyCamp camp, Castle house) {
+    public Soldier(String name, int id, int currentHP, int maxHP, int size, int attackDamage, int attckSpeed, int movementSpeed, int level, boolean terrestrial, ArmyCamp camp, Castle house,Icon icon) {
         this.name = name;
         this.id = id;
         this.currentHP = currentHP;
@@ -43,7 +47,8 @@ public class Soldier extends Thread implements Defense{
         this.level = level;
         this.terrestrial = terrestrial;
         this.camp = camp;
-      
+
+        this.label = new JLabel(icon);
     }
 
     public int getSize() {

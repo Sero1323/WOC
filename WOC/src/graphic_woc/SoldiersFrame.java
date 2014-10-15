@@ -6,6 +6,7 @@
 
 package graphic_woc;
 
+import javax.swing.ImageIcon;
 import woc.ArmyCamp;
 
 /**
@@ -13,7 +14,7 @@ import woc.ArmyCamp;
  * @author Sergio
  */
 public class SoldiersFrame extends javax.swing.JFrame {
-
+    ArmyCamp army;
     /**
      * Creates new form SoldiersFrame
      */
@@ -23,6 +24,7 @@ public class SoldiersFrame extends javax.swing.JFrame {
     }
     public void loadComponents(ArmyCamp a)
     {
+        this.army= a;
         this.setVisible(true);
         String labeltxt = "";
         int soldiers = 0;
@@ -31,6 +33,7 @@ public class SoldiersFrame extends javax.swing.JFrame {
             soldiers += a.getSoldiers().get(i).getSize();
         }
         jLabel1.setText("Espacio: "+soldiers+"/"+a.getMaxWarriors());
+        jButton1.setIcon(new ImageIcon("src/Buildings_IMG/Soldier_ShortRange.gif"));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +51,11 @@ public class SoldiersFrame extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +97,10 @@ public class SoldiersFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        army.addSoldier(1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -118,6 +130,7 @@ public class SoldiersFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new SoldiersFrame().setVisible(true);
             }

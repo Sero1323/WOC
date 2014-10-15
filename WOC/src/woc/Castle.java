@@ -6,13 +6,15 @@
 
 package woc;
 
+import graphic_woc.InGameFrame;
 import java.util.ArrayList;
 
 /**
  *
  * @author Sergio
  */
-public class Castle {
+public class Castle implements java.io.Serializable{
+    public InGameFrame frame;
     private final String user;
     private final String password;
     private final String name;
@@ -27,7 +29,7 @@ public class Castle {
     ArmyCamp a;
 
 
-    public Castle(String user, String password, String name) {
+    public Castle(String user, String password, String name,InGameFrame frame) {
         this.user = user;
         this.password = password;
         this.name = name;
@@ -38,6 +40,7 @@ public class Castle {
         this.gold = 10000;
         celds = new Celd[sizeY][sizeX];
         this.buildings = new ArrayList <>();
+        this.frame = frame;
     }
 
     public String getUser() {

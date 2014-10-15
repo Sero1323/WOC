@@ -24,6 +24,7 @@ public class Building implements Defense{
     private int level;
     Castle house;
     public ImagePane panel;
+    public Celd c;
     public Building() {
         
     }
@@ -40,6 +41,7 @@ public class Building implements Defense{
         this.level = level;
         this.house = house;
         this.house.getBuildings().add(this);
+        
         
     }
 

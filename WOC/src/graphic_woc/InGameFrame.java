@@ -6,6 +6,9 @@
 
 package graphic_woc;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import javax.swing.ImageIcon;
 import woc.Building;
 import woc.Castle;
@@ -16,8 +19,8 @@ import woc.ArmyCamp;
  *
  * @author Sergio
  */
-public class InGameFrame extends javax.swing.JFrame{
-    Castle castle = new Castle("asd","asd","asd");
+public class InGameFrame extends javax.swing.JFrame  {
+    Castle castle = new Castle("asd","asd","asd",this);
     ImageIcon ground = new ImageIcon("src/Buildings_IMG/ground.jpg");
     ImageIcon ground_select = new ImageIcon("src/Buildings_IMG/ground_select.jpg");
     Celd lastselect = new Celd();
@@ -26,7 +29,15 @@ public class InGameFrame extends javax.swing.JFrame{
     SoldiersFrame s;
 
     public InGameFrame() {
-        castle = new Castle("asd","asd","asd");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                jLabel1.setText("Oro: "+castle.getGold());
+                jLabel2.setText("Nivel: "+(int)Math.sqrt(castle.getExp()));
+            }
+        });
+        
+        castle = new Castle("asd","asd","asd",this);
         this.b = new BuildingsFrame(this);
         this.s = new SoldiersFrame();
         initComponents();
@@ -42,13 +53,24 @@ public class InGameFrame extends javax.swing.JFrame{
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1344, 750));
+        setMaximumSize(new java.awt.Dimension(1280, 750));
+        setMinimumSize(new java.awt.Dimension(1280, 750));
+        setPreferredSize(new java.awt.Dimension(1280, 750));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 test(evt);
+            }
+        });
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+                moved(evt);
             }
         });
 
@@ -59,53 +81,98 @@ public class InGameFrame extends javax.swing.JFrame{
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Oro");
+
+        jLabel2.setFont(new java.awt.Font("Algerian", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Nivel");
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 352, Short.MAX_VALUE))
+                .addGap(143, 143, 143)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 252, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    this.b.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void test(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_test
     }//GEN-LAST:event_test
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.b.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        
+    }//GEN-LAST:event_formMouseMoved
+
+    private void moved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moved
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        InGameFrame n = new InGameFrame();
+        n.jButton1.setVisible(false);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
   
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String args[])
+    {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 new InGameFrame().setVisible(true);
             }
         });
-    }
-    
 
+    }
     // Variables declaration - do not modify                     
     // End of variables declaration                   
 
+    
+ 
     private void addLanes()
     {
         for(int i=0;i<castle.getSizeY();i++)
@@ -126,11 +193,12 @@ public class InGameFrame extends javax.swing.JFrame{
                     public void mouseClicked(java.awt.event.MouseEvent evt)
                     {
                         select(castle.getCelds()[a][b]);
-                    }
+                    }                    
                 });    
             }
     }
-    private void select(Celd c) {
+    private void select(Celd c)
+    {
         if(c.fill == null)
         {
             if (newBuilding != null)
@@ -149,45 +217,55 @@ public class InGameFrame extends javax.swing.JFrame{
                 c.panel.img = (c.panel.select) ? ground_select.getImage() : ground.getImage();
                 c.panel.repaint();
                 lastselect = c;
-
             }else
                 lastselect = new Celd();
         } else
-            selectBuilding(c.fill);
-            
+            selectBuilding(c.fill);  
     }
 
-    private void addNewBuilding(Celd c) {
+    private void addNewBuilding(Celd c)
+    {
         try
         {
-            if(castle.getCelds()[c.y][c.x].fill == null && castle.getCelds()[c.y][c.x+1].fill == null && castle.getCelds()[c.y+1][c.x].fill == null && castle.getCelds()[c.y+1][c.x+1].fill == null)
+            Building newBuildingtmp = newBuilding;
+            newBuilding = null;
+            newBuildingtmp.panel.setLocation(48*c.x, 48*c.y);
+            if(newBuildingtmp.getSizeX()== 2)
             {
-                Building newBuildingtmp = newBuilding;
-                newBuilding = null;
-                newBuildingtmp.panel.setLocation(48*c.x, 48*c.y);
-                if(newBuildingtmp.getSizeX()== 2)
+                if(castle.getCelds()[c.y][c.x].fill == null && castle.getCelds()[c.y][c.x+1].fill == null && castle.getCelds()[c.y+1][c.x].fill == null && castle.getCelds()[c.y+1][c.x+1].fill == null)
+                {
+                    newBuildingtmp.c=castle.getCelds()[c.y+1][c.x+1];
                     newBuildingtmp.panel.setSize(96, 96);
-                else
+                    newBuildingtmp.panel.setVisible(true);
+                    newBuildingtmp.panel.setRequestFocusEnabled(true);
+                    this.getContentPane().add(newBuildingtmp.panel, 0);
+                    newBuildingtmp.panel.repaint();
+                    castle.getCelds()[c.y][c.x].fill = newBuildingtmp;
+                    castle.getCelds()[c.y][c.x+1].fill = newBuildingtmp;
+                    castle.getCelds()[c.y+1][c.x].fill = newBuildingtmp;
+                    castle.getCelds()[c.y+1][c.x+1].fill = newBuildingtmp;
+                    this.pack();
+                }
+            } else
+                if(newBuildingtmp.getSizeX()== 1 && castle.getCelds()[c.y][c.x].fill == null)
+                {
+                    newBuildingtmp.c=c;
                     newBuildingtmp.panel.setSize(48, 48);
-
-                newBuildingtmp.panel.setVisible(true);
-                newBuildingtmp.panel.setRequestFocusEnabled(true);
-                this.getContentPane().add(newBuildingtmp.panel, 0);
-                newBuildingtmp.panel.repaint();
-                castle.getCelds()[c.y][c.x].fill = newBuildingtmp;
-                castle.getCelds()[c.y][c.x+1].fill = newBuildingtmp;
-                castle.getCelds()[c.y+1][c.x].fill = newBuildingtmp;
-                castle.getCelds()[c.y+1][c.x+1].fill = newBuildingtmp;
-
-                this.pack();
-            }
+                    newBuildingtmp.panel.setVisible(true);
+                    newBuildingtmp.panel.setRequestFocusEnabled(true);
+                    this.getContentPane().add(newBuildingtmp.panel, 0);
+                    newBuildingtmp.panel.repaint();
+                    castle.getCelds()[c.y][c.x].fill = newBuildingtmp;
+                    this.pack();
+                }
+            
         } catch (ArrayIndexOutOfBoundsException e)
         {
             showMessageDialog(this, "No puedes ubicar esta estructura aqui", "Warning",0);
         }
     }
-    
-    private void selectBuilding(Building buttonBuilding) {
+    private void selectBuilding(Building buttonBuilding)
+    {
         if(!"ArmyCamp".equals(buttonBuilding.getName()))
         {
             showMessageDialog(this, "HP: "+buttonBuilding.getMaxHP()+"\nHP: "+buttonBuilding.getMaxHP(), buttonBuilding.getName()+" Info",1);
@@ -197,6 +275,4 @@ public class InGameFrame extends javax.swing.JFrame{
             s.loadComponents(a);
         }
     }
-
-
 }
