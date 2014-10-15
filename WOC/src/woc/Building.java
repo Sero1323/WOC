@@ -6,6 +6,8 @@
 
 package woc;
 
+import graphic_woc.ImagePane;
+
 /**
  *
  * @author Sergio
@@ -21,7 +23,7 @@ public class Building implements Defense{
     private int maxHP;
     private int level;
     Castle house;
-
+    public ImagePane panel;
     public Building() {
         
     }
@@ -38,6 +40,7 @@ public class Building implements Defense{
         this.level = level;
         this.house = house;
         this.house.getBuildings().add(this);
+        
     }
 
     public void setPosX(int posX) {

@@ -18,13 +18,16 @@ public class ArmyCamp extends Building{
     private int warriorsNumb;
     private int maxWarriors;
     private ArrayList <Soldier> soldiers;
-    public ImagePane panel;
 
-    public ArmyCamp(String name, int id, int posX, int posY, int sizeX, int sizeY, int currentHP, int maxHP, int level, Castle house) {
+    public ArmyCamp(String name, int id, int posX, int posY, int sizeX, int sizeY, int currentHP, int maxHP, int level, Castle house,int maxWarriors) {
         super(name, id, posX, posY, 2, 2, currentHP, maxHP, level, house);
         this.panel = new ImagePane(new ImageIcon("src/Buildings_IMG/ArmyCamp.png").getImage());
+        soldiers = new ArrayList <>();
+        this.maxWarriors= maxWarriors;
         
     }
+
+        
 
     public ArmyCamp() {
     }
@@ -36,6 +39,10 @@ public class ArmyCamp extends Building{
 
     public ArrayList<Soldier> getSoldiers() {
         return soldiers;
+    }
+
+    public int getMaxWarriors() {
+        return maxWarriors;
     }
     
 

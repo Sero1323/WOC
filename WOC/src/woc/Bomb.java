@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class Bomb extends Building{
     private int damage;
-    public ImagePane panel;
+    
 
     public Bomb(String name, int id, int posX, int posY, int sizeX, int sizeY, int currentHP, int maxHP, int level, Castle house, int damage) {
         super(name, id, posX, posY, sizeX, sizeY, currentHP, maxHP, level, house);

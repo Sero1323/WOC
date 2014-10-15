@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
  * @author Sergio
  */
 public class TownHall extends Building{
-    public ImagePane panel;
 
     public TownHall(String name, int id, int posX, int posY,  int currentHP, int maxHP, int level, Castle house) {
         super(name, id, posX, posY, 2, 2, currentHP, maxHP, level, house);
