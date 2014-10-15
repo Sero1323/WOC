@@ -7,6 +7,13 @@
 package logic;
 
 import data.GameFile;
+import graphic_woc.GameFrame;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -15,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Felipe
  */
-public class Match extends AbstractManager {
+public class Match extends AbstractManager<GameFrame> {
 
     private static Match manager;
     
@@ -24,17 +31,49 @@ public class Match extends AbstractManager {
     }
     
     @Override
+    public ArrayList<GameFrame> find(String condition) {
+        ArrayList<GameFrame> list = new ArrayList<GameFrame>();
+        ResultSet data = db.find("idPartida, nombre, idUsuario_fk", condition);
+        InputStream file = null;
+        BufferedInputStream buffer = null;
+        ObjectInput stream = null;
+        try {
+            while (data.next()) {
+                file = new FileInputStream(data.getString("nombre"));
+                buffer = new BufferedInputStream(file);
+                stream = new ObjectInputStream(buffer);
+                list.add((GameFrame) stream.readObject());
+                stream.close();
+                buffer.close();
+                file.close();
+            }
+            data.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    @Override
     public void insert(String vals) {
         if (!db.insert("nombre, idUsuario_fk", vals)) {
             JOptionPane.showMessageDialog(null, "Problema al agregar");
         } else {
-            GameFile.addMatchFile(vals.split(",")[0]);
+            File location = new File("juegos");
+            if (!location.mkdir()) {
+                location.mkdir();
+            }
+            String game = vals.split(",")[0];
+            location = new File("juegos/" + game);
+            try {
+                location.createNewFile();
+            } catch (Exception e) {
+            }
         }
     }
 
     @Override
-    public void edit(String values) {
-        if (!db.edit(values)) {
+    public void edit(String values, String filter) {
+        if (!db.edit(values, "WHERE " + filter)) {
             JOptionPane.showMessageDialog(null, "Problema al editar");
         }
     }
@@ -47,15 +86,15 @@ public class Match extends AbstractManager {
     }
     
     public ArrayList<String> plays(int id) {
-        ArrayList<String> files = new ArrayList<String>();
+        ArrayList<String> fileNames = new ArrayList<String>();
         ResultSet data = db.find("nombre", "WHERE idUsuario_fk = " + id);
         try {
             while (data.next()) {
-                files.add(data.getString("nombre"));
+                fileNames.add(data.getString("nombre"));
             }
         } catch (Exception e) {
         }
-        return files;
+        return fileNames;
     }
     
     public static Match getManager() {

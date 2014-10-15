@@ -21,9 +21,10 @@ public class UserInfo {
     private String tipo;
     private ArrayList<GameFrame> games;
     
-    public UserInfo(int idUsuario, String usuario, String tipo) {
+    public UserInfo(int idUsuario, String contrasena, String usuario, String tipo) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
+        this.contrasena = contrasena;
         this.tipo = tipo;
     }
 
@@ -65,6 +66,11 @@ public class UserInfo {
 
     public void setGames(ArrayList<GameFrame> games) {
         this.games = games;
+    }
+    
+    @Override
+    public String toString() {
+        return usuario;
     }
     
 }

@@ -17,6 +17,9 @@ public class Celd {
   public boolean select;
   public ImagePane panel;
   ArrayList<Defense> content;
+  public Building fill;
+  public int x;
+  public int y;
 
   public Celd() {
     this.panel = new ImagePane();
@@ -27,6 +30,11 @@ public class Celd {
   }
 
     public Celd(Image img) {
+        this.panel= new ImagePane(img);
+    }
+    public Celd(Image img,int x, int y) {
+        this.x = x;
+        this.y = y;
         this.panel= new ImagePane(img);
     }
 }

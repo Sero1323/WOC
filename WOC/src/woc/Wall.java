@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
  * @author Sergio
  */
 public class Wall extends Building{
-    public ImagePane panel;
 
     public Wall(String name, int id, int posX, int posY, int currentHP, int maxHP, int level, Castle house) {
         super(name, id, posX, posY, 1, 1, currentHP, maxHP, level, house);

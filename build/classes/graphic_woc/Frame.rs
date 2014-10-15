@@ -1,2 +1,0 @@
-graphic_woc.Frame
-graphic_woc.ImagePanel

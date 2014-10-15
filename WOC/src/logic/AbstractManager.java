@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Felipe
  */
-public abstract class AbstractManager {
+public abstract class AbstractManager<T> {
     
     protected AccessDB db;
     
@@ -22,25 +22,8 @@ public abstract class AbstractManager {
         db = new AccessDB(set);
     }
     
-    public ArrayList<String[]> find(String cols, String condition) {
-        String[] columns = cols.split(",");
-        String[] information = null;
-        ArrayList<String[]> list = new ArrayList<String[]>();
-        ResultSet data = db.find(cols, condition);
-        try {
-            while (data.next()) {
-                information = new String[columns.length];
-                for (int i = 0; i < columns.length; i++) {
-                    information[i] = data.getString(columns[i]);
-                }
-                list.add(information);
-            }
-        } catch (Exception e) {
-        }
-        return list;
-    }
-    
+    public abstract ArrayList<T> find(String condition);
     public abstract void insert(String vals);
-    public abstract void edit(String values);
+    public abstract void edit(String vals, String filer);
     public abstract void remove(String condition);
 }

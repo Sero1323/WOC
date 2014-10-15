@@ -8,9 +8,12 @@ package graphic_woc;
 
 import usuario.UserInfo;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import logic.Loader;
 import logic.Match;
+import logic.User;
+import woc.Building;
 import woc.Soldier;
 
 /**
@@ -20,6 +23,7 @@ import woc.Soldier;
 public class ConfigurationFrame extends javax.swing.JFrame {
     
     private static UserInfo information;
+    private int tipo;
     
     /**
      * Creates new form ConfigurationFrame
@@ -28,24 +32,37 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         initComponents();
         lblUsuario.setText(information.getUsuario());
         btnJugar.setVisible(false);
+        pnlAcciones.setVisible(false);
+        pnlCambios.setVisible(false);
     }
 
     public static void initUser(UserInfo user) {
         information = user;
     }
     
-    private void mostrarOpciones() {
-        if (information.getTipo().equals("Administrador")) {
-            javax.swing.JPanel pnlOpciones = new javax.swing.JPanel();
-            javax.swing.JPanel pnlUsuarios = new javax.swing.JPanel();
-            javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-            javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
-            javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
-            javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
-            javax.swing.JTextField jTextField3 = new javax.swing.JTextField();
-            javax.swing.JButton btnAceptar = new javax.swing.JButton();
-            javax.swing.JButton btnCancelar = new javax.swing.JButton();
-        }
+    private void limpiarUsuarios() {
+        txtNombre.setText("");
+        txtContrasena.setText("");
+        cmbTipo.setSelectedIndex(-1);
+    }
+    
+    private void limpiarSoldados() {
+        cmbTipoSoldado.setSelectedIndex(-1);
+        lblFotoSoldado.setIcon(null);
+        txtNombreSoldado.setText("");
+        spnVida.setValue(1);
+        spnEspacio.setValue(1);
+        spnAtaque.setValue(1);
+        spnVelocidad.setValue(1);
+        spnNivel.setValue(1);
+    }
+    
+    private void limpiarObstaculos() {
+        cmbTipoObstaculo.setSelectedIndex(-1);
+        lblFotoObstaculo.setIcon(null);
+        txtNombreObstaculo.setText("");
+        spnVida.setValue(1);
+        spnNivel.setValue(1);
     }
     
     /**
@@ -65,8 +82,8 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         pnlOperacion = new javax.swing.JPanel();
         tbpModulos = new javax.swing.JTabbedPane();
-        pnlPartidaImagen = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlJuego = new javax.swing.JPanel();
+        pnlIniciar = new javax.swing.JPanel();
         btnJugar = new javax.swing.JButton();
         pnlOpciones = new javax.swing.JPanel();
         tbpGame = new javax.swing.JTabbedPane();
@@ -74,22 +91,54 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         lstSoldados = new javax.swing.JList();
         pnlSoldadosInformacion = new javax.swing.JPanel();
+        lblNombreSoldado = new javax.swing.JLabel();
+        lblVida = new javax.swing.JLabel();
+        lblEspacio = new javax.swing.JLabel();
+        lblAtaque = new javax.swing.JLabel();
+        lblVelocidad = new javax.swing.JLabel();
+        lblTipoSoldado = new javax.swing.JLabel();
+        txtNombreSoldado = new javax.swing.JTextField();
+        spnVida = new javax.swing.JSpinner();
+        spnEspacio = new javax.swing.JSpinner();
+        spnAtaque = new javax.swing.JSpinner();
+        pnlFotoSoldado = new javax.swing.JPanel();
+        lblFotoSoldado = new javax.swing.JLabel();
+        btnAbrir = new javax.swing.JButton();
+        spnVelocidad = new javax.swing.JSpinner();
+        cmbTipoSoldado = new javax.swing.JComboBox();
+        lblNivel = new javax.swing.JLabel();
+        spnNivel = new javax.swing.JSpinner();
         pnlEstructuras = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         lstEstructuras = new javax.swing.JList();
         pnlEstructurasInformacion = new javax.swing.JPanel();
+        lblNombreObstaculo = new javax.swing.JLabel();
+        lblVidaObstaculo = new javax.swing.JLabel();
+        lblNivelObstaculo = new javax.swing.JLabel();
+        pnlFotoObstaculo = new javax.swing.JPanel();
+        lblFotoObstaculo = new javax.swing.JLabel();
+        btnSeleccionar = new javax.swing.JButton();
+        cmbTipoObstaculo = new javax.swing.JComboBox();
+        lblTipoObstaculo = new javax.swing.JLabel();
+        txtNombreObstaculo = new javax.swing.JTextField();
+        spnVidaObstaculo = new javax.swing.JSpinner();
+        spnNivelObstaculo = new javax.swing.JSpinner();
         pnlUsuarios = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblContrasena = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        lblTipo = new javax.swing.JLabel();
+        txtContrasena = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstUsuarios = new javax.swing.JList();
+        pnlAcciones = new javax.swing.JPanel();
+        btnAgregar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        pnlCambios = new javax.swing.JPanel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Configuraciones");
@@ -163,86 +212,194 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         pnlOperacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Configuraciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 22))); // NOI18N
 
-        pnlPartidaImagen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pnlPartidaImagenMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pnlPartidaImagenMouseExited(evt);
-            }
-        });
+        pnlIniciar.setPreferredSize(new java.awt.Dimension(200, 170));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(190, 150));
-        jPanel1.setMinimumSize(new java.awt.Dimension(190, 150));
-        jPanel1.setPreferredSize(new java.awt.Dimension(190, 150));
-
-        btnJugar.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        btnJugar.setFont(new java.awt.Font("Tahoma", 1, 72)); // NOI18N
         btnJugar.setText("Jugar");
-        btnJugar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnJugarMouseEntered(evt);
-            }
-        });
-        btnJugar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnJugarActionPerformed(evt);
-            }
-        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnJugar, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlIniciarLayout = new javax.swing.GroupLayout(pnlIniciar);
+        pnlIniciar.setLayout(pnlIniciarLayout);
+        pnlIniciarLayout.setHorizontalGroup(
+            pnlIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIniciarLayout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(btnJugar)
-                .addGap(41, 41, 41))
+                .addGap(32, 32, 32))
+        );
+        pnlIniciarLayout.setVerticalGroup(
+            pnlIniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIniciarLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(btnJugar)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlPartidaImagenLayout = new javax.swing.GroupLayout(pnlPartidaImagen);
-        pnlPartidaImagen.setLayout(pnlPartidaImagenLayout);
-        pnlPartidaImagenLayout.setHorizontalGroup(
-            pnlPartidaImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPartidaImagenLayout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(348, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlJuegoLayout = new javax.swing.GroupLayout(pnlJuego);
+        pnlJuego.setLayout(pnlJuegoLayout);
+        pnlJuegoLayout.setHorizontalGroup(
+            pnlJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlJuegoLayout.createSequentialGroup()
+                .addContainerGap(247, Short.MAX_VALUE)
+                .addComponent(pnlIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155))
         );
-        pnlPartidaImagenLayout.setVerticalGroup(
-            pnlPartidaImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPartidaImagenLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+        pnlJuegoLayout.setVerticalGroup(
+            pnlJuegoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlJuegoLayout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(pnlIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
-        tbpModulos.addTab("Partida", pnlPartidaImagen);
+        tbpModulos.addTab("Partida", pnlJuego);
 
         lstSoldados.setModel(new javax.swing.AbstractListModel<Soldier>() {
-            ArrayList<Soldier> soldiers = Loader.loadSoldiers();
-            public int getSize() { return soldiers.size(); }
-            public Soldier getElementAt(int i) { return soldiers.get(i); }
+            ArrayList<Soldier> army = Loader.getManager().getSoldiers();
+            public int getSize() { return army.size(); }
+            public Soldier getElementAt(int i) { return army.get(i); }
+        });
+        lstSoldados.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstSoldadosValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(lstSoldados);
 
         pnlSoldadosInformacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion"));
 
+        lblNombreSoldado.setText("Nombre");
+
+        lblVida.setText("Vida");
+
+        lblEspacio.setText("Espacio");
+
+        lblAtaque.setText("Ataque");
+
+        lblVelocidad.setText("Velocidad");
+
+        lblTipoSoldado.setText("Tipo");
+
+        spnVida.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        spnEspacio.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        spnAtaque.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        lblFotoSoldado.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+
+        btnAbrir.setText("Abrir");
+        btnAbrir.setEnabled(false);
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFotoSoldadoLayout = new javax.swing.GroupLayout(pnlFotoSoldado);
+        pnlFotoSoldado.setLayout(pnlFotoSoldadoLayout);
+        pnlFotoSoldadoLayout.setHorizontalGroup(
+            pnlFotoSoldadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFotoSoldadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFotoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAbrir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlFotoSoldadoLayout.setVerticalGroup(
+            pnlFotoSoldadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFotoSoldadoLayout.createSequentialGroup()
+                .addGroup(pnlFotoSoldadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFotoSoldadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFotoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFotoSoldadoLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btnAbrir)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        spnVelocidad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        cmbTipoSoldado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoSoldado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbTipoSoldadoItemStateChanged(evt);
+            }
+        });
+
+        lblNivel.setText("Nivel");
+
+        spnNivel.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
         javax.swing.GroupLayout pnlSoldadosInformacionLayout = new javax.swing.GroupLayout(pnlSoldadosInformacion);
         pnlSoldadosInformacion.setLayout(pnlSoldadosInformacionLayout);
         pnlSoldadosInformacionLayout.setHorizontalGroup(
             pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlFotoSoldado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
+                        .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
+                                .addComponent(lblTipoSoldado)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbTipoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
+                                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombreSoldado)
+                                    .addComponent(lblVida)
+                                    .addComponent(lblEspacio)
+                                    .addComponent(lblAtaque)
+                                    .addComponent(lblVelocidad)
+                                    .addComponent(lblNivel))
+                                .addGap(42, 42, 42)
+                                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spnEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spnVida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombreSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(spnNivel, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(spnVelocidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addComponent(spnAtaque, javax.swing.GroupLayout.Alignment.LEADING)))))
+                        .addGap(0, 28, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlSoldadosInformacionLayout.setVerticalGroup(
             pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSoldadosInformacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipoSoldado)
+                    .addComponent(cmbTipoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlFotoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreSoldado)
+                    .addComponent(txtNombreSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVida)
+                    .addComponent(spnVida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEspacio)
+                    .addComponent(spnEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAtaque)
+                    .addComponent(spnAtaque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVelocidad)
+                    .addComponent(spnVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNivel)
+                    .addComponent(spnNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout pnlSoldadosLayout = new javax.swing.GroupLayout(pnlSoldados);
@@ -251,8 +408,8 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             pnlSoldadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSoldadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlSoldadosInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -261,31 +418,128 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             .addGroup(pnlSoldadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSoldadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addComponent(pnlSoldadosInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         tbpGame.addTab("Soldados", pnlSoldados);
 
-        lstEstructuras.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        lstEstructuras.setModel(new javax.swing.AbstractListModel<Building>() {
+            ArrayList<Building> obstacles = Loader.getManager().getBuildings();
+            public int getSize() { return obstacles.size(); }
+            public Building getElementAt(int i) { return obstacles.get(i); }
+        });
+        lstEstructuras.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstEstructuras.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstEstructurasValueChanged(evt);
+            }
         });
         jScrollPane4.setViewportView(lstEstructuras);
 
         pnlEstructurasInformacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion"));
 
+        lblNombreObstaculo.setText("Nombre");
+
+        lblVidaObstaculo.setText("Vida");
+
+        lblNivelObstaculo.setText("Nivel");
+
+        lblFotoObstaculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setEnabled(false);
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFotoObstaculoLayout = new javax.swing.GroupLayout(pnlFotoObstaculo);
+        pnlFotoObstaculo.setLayout(pnlFotoObstaculoLayout);
+        pnlFotoObstaculoLayout.setHorizontalGroup(
+            pnlFotoObstaculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFotoObstaculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFotoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSeleccionar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlFotoObstaculoLayout.setVerticalGroup(
+            pnlFotoObstaculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFotoObstaculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFotoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFotoObstaculoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSeleccionar)
+                .addGap(35, 35, 35))
+        );
+
+        cmbTipoObstaculo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoObstaculo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbTipoObstaculoItemStateChanged(evt);
+            }
+        });
+
+        lblTipoObstaculo.setText("Tipo");
+
+        spnVidaObstaculo.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        spnNivelObstaculo.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
         javax.swing.GroupLayout pnlEstructurasInformacionLayout = new javax.swing.GroupLayout(pnlEstructurasInformacion);
         pnlEstructurasInformacion.setLayout(pnlEstructurasInformacionLayout);
         pnlEstructurasInformacionLayout.setHorizontalGroup(
             pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlFotoObstaculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
+                        .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreObstaculo)
+                            .addComponent(lblVidaObstaculo)
+                            .addComponent(lblNivelObstaculo))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombreObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(spnNivelObstaculo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(spnVidaObstaculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                        .addGap(0, 16, Short.MAX_VALUE))
+                    .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
+                        .addComponent(lblTipoObstaculo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbTipoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlEstructurasInformacionLayout.setVerticalGroup(
             pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEstructurasInformacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipoObstaculo)
+                    .addComponent(cmbTipoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlFotoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreObstaculo)
+                    .addComponent(txtNombreObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVidaObstaculo)
+                    .addComponent(spnVidaObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNivelObstaculo)
+                    .addComponent(spnNivelObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlEstructurasLayout = new javax.swing.GroupLayout(pnlEstructuras);
@@ -294,7 +548,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             pnlEstructurasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstructurasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlEstructurasInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -304,7 +558,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             .addGroup(pnlEstructurasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEstructurasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                     .addComponent(pnlEstructurasInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -332,21 +586,13 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion"));
 
-        jLabel1.setText("jLabel1");
+        lblNombre.setText("Nombre");
 
-        jTextField1.setText("jTextField1");
-
-        jLabel2.setText("jLabel2");
+        lblContrasena.setText("Contrasena");
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Jugador" }));
 
-        jLabel3.setText("jLabel3");
-
-        jTextField3.setText("jTextField3");
-
-        btnAceptar.setText("Aceptar");
-
-        btnCancelar.setText("Cancelar");
+        lblTipo.setText("Tipo");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -355,22 +601,18 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblNombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblContrasena)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAceptar)
+                        .addComponent(lblTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)))
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -378,27 +620,29 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNombre)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblContrasena)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipo)
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                .addContainerGap(274, Short.MAX_VALUE))
         );
 
-        lstUsuarios.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        lstUsuarios.setModel(new javax.swing.AbstractListModel<UserInfo>() {
+            ArrayList<UserInfo> players = User.getManager().find("");
+            public int getSize() { return players.size(); }
+            public UserInfo getElementAt(int i) { return players.get(i); }
+        });
+        lstUsuarios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstUsuarios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstUsuariosValueChanged(evt);
+            }
         });
         jScrollPane3.setViewportView(lstUsuarios);
 
@@ -408,7 +652,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUsuariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -419,11 +663,82 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
+                    .addGroup(pnlUsuariosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)))
                 .addContainerGap())
         );
 
         tbpModulos.addTab("Usuarios", pnlUsuarios);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlAccionesLayout = new javax.swing.GroupLayout(pnlAcciones);
+        pnlAcciones.setLayout(pnlAccionesLayout);
+        pnlAccionesLayout.setHorizontalGroup(
+            pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAccionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEliminar)
+                .addContainerGap())
+        );
+        pnlAccionesLayout.setVerticalGroup(
+            pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAccionesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(pnlAccionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEliminar)))
+        );
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCambiosLayout = new javax.swing.GroupLayout(pnlCambios);
+        pnlCambios.setLayout(pnlCambiosLayout);
+        pnlCambiosLayout.setHorizontalGroup(
+            pnlCambiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCambiosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addContainerGap())
+        );
+        pnlCambiosLayout.setVerticalGroup(
+            pnlCambiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCambiosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(pnlCambiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar)))
+        );
 
         javax.swing.GroupLayout pnlOperacionLayout = new javax.swing.GroupLayout(pnlOperacion);
         pnlOperacion.setLayout(pnlOperacionLayout);
@@ -431,14 +746,23 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             pnlOperacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOperacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tbpModulos)
-                .addContainerGap())
+                .addGroup(pnlOperacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tbpModulos, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOperacionLayout.createSequentialGroup()
+                        .addComponent(pnlAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlOperacionLayout.setVerticalGroup(
             pnlOperacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOperacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tbpModulos)
+                .addComponent(tbpModulos, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlOperacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -466,32 +790,157 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        GameFrame game = new GameFrame();
-        game.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnJugarActionPerformed
-
     private void btnPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartidaActionPerformed
         String play = JOptionPane.showInputDialog(this, "Ingrese un identificador para la partida", "Partida", JOptionPane.INFORMATION_MESSAGE);
-        Match.getManager().insert(play + "," + information.getIdUsuario());
+        if (!play.equals("")) {
+            Match.getManager().insert(play + "," + information.getIdUsuario());
+        }
     }//GEN-LAST:event_btnPartidaActionPerformed
 
     private void lstPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPartidasValueChanged
         
     }//GEN-LAST:event_lstPartidasValueChanged
 
-    private void pnlPartidaImagenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPartidaImagenMouseEntered
-        btnJugar.setVisible(true);
-    }//GEN-LAST:event_pnlPartidaImagenMouseEntered
+    private void lstUsuariosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuariosValueChanged
+        UserInfo player = (UserInfo) lstUsuarios.getSelectedValue();
+        txtNombre.setText(player.getUsuario());
+        txtContrasena.setText(player.getContrasena());
+        cmbTipo.setSelectedItem(player.getTipo());
+        tipo = 1;
+    }//GEN-LAST:event_lstUsuariosValueChanged
 
-    private void pnlPartidaImagenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPartidaImagenMouseExited
-        btnJugar.setVisible(false);
-    }//GEN-LAST:event_pnlPartidaImagenMouseExited
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String data = "";
+        if (tipo == 0) {
+            if (tbpModulos.getSelectedIndex() == 2) {
+                data = txtNombre.getText() + "," + txtContrasena.getText() + "," + cmbTipo.getSelectedItem();
+                if (data.split(",").length == 3) {
+                    User.getManager().insert(data);
+                }
+            } else {
+                if (tbpGame.getSelectedIndex() == 0) {
+                    if (cmbTipoSoldado.getSelectedIndex() > -1 && lblFotoSoldado.getIcon() != null && !txtNombreSoldado.getText().equals("")) {
+                        Soldier character = null;
+                    }
+                } else {
+                    if (cmbTipoObstaculo.getSelectedIndex() > - 1 && lblFotoObstaculo.getIcon() != null && !txtNombreObstaculo.getText().equals("")) {
+                        Building place = null;
+                    }
+                }
+            }
+        } else {
+            if (tbpModulos.getSelectedIndex() == 2) {
+                data = "nombre = " + txtNombre.getText() + ", contrasena = " + txtContrasena.getText() + ", tipo = " + cmbTipo.getSelectedItem();
+                UserInfo player = (UserInfo) lstUsuarios.getSelectedValue();
+                User.getManager().edit(data, "idUsuario = " + player.getIdUsuario());
+            } else {
+                if (tbpGame.getSelectedIndex() == 0) {
+                    Soldier character = (Soldier) lstSoldados.getSelectedValue();
+                } else {
+                    Building place = (Building) lstEstructuras.getSelectedValue();
+                }
+            }
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void btnJugarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJugarMouseEntered
-        btnJugar.setVisible(true);
-    }//GEN-LAST:event_btnJugarMouseEntered
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        if (tbpModulos.getSelectedIndex() == 2) {
+            limpiarUsuarios();
+        } else {
+            if (tbpGame.getSelectedIndex() == 0) {
+                limpiarSoldados();
+            } else {
+                limpiarObstaculos();
+            }
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        tipo = 0;
+        if (tbpModulos.getSelectedIndex() == 2) {
+            limpiarUsuarios();
+        } else {
+            if (tbpGame.getSelectedIndex() == 0) {
+                limpiarSoldados();
+            } else {
+                limpiarObstaculos();
+            }
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        btnEliminar.setEnabled(true);
+        if (tbpModulos.getSelectedIndex() == 2) {
+            UserInfo player = (UserInfo) lstUsuarios.getSelectedValue();
+            User.getManager().remove("idUsuario = " + player.getIdUsuario());
+            limpiarUsuarios();
+        } else {
+            if (tbpGame.getSelectedIndex() == 0) {
+                Soldier character = (Soldier) lstSoldados.getSelectedValue();
+                Loader.getManager().getSoldiers().remove(character);
+                limpiarSoldados();
+            } else {
+                Building place = (Building) lstEstructuras.getSelectedValue();
+                Loader.getManager().getBuildings().remove(place);
+                limpiarObstaculos();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void cmbTipoSoldadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoSoldadoItemStateChanged
+        if (cmbTipoSoldado.getSelectedIndex() > -1) {
+            btnAbrir.setEnabled(true);
+        } else {
+            Loader.getManager().setElements(null);
+            lblFotoSoldado.setIcon(null);
+        }
+    }//GEN-LAST:event_cmbTipoSoldadoItemStateChanged
+
+    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+        javax.swing.JFileChooser explorer = new javax.swing.JFileChooser();
+        explorer.showOpenDialog(this);
+        if (!Loader.getManager().loadImages(explorer.getSelectedFiles(), 24, 24)) {
+            JOptionPane.showMessageDialog(this, "Las imagenes tienen que tener un ancho y largo menor que 24", "Problema", JOptionPane.ERROR_MESSAGE);
+        }
+        lblFotoSoldado.setIcon(new ImageIcon(Loader.getManager().getElements()[0]));
+    }//GEN-LAST:event_btnAbrirActionPerformed
+
+    private void lstSoldadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstSoldadosValueChanged
+        Soldier element = (Soldier) lstSoldados.getSelectedValue();
+        cmbTipoSoldado.setSelectedItem(element.getName());
+        lblFotoSoldado.setIcon(new ImageIcon(element.getFrames()[0]));
+        txtNombre.setText(element.getName());
+        spnVida.setValue(element.getHP());
+        spnEspacio.setValue(element.getSize());
+        spnNivel.setValue(element.getLevel());
+        tipo = 1;
+    }//GEN-LAST:event_lstSoldadosValueChanged
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        javax.swing.JFileChooser explorer = new javax.swing.JFileChooser();
+        explorer.showOpenDialog(this);
+        lblFotoObstaculo.setIcon(new ImageIcon(Loader.getManager().loadImage(explorer.getSelectedFile(), 48, 48)));
+        if (lblFotoObstaculo.getIcon() == null) {
+            JOptionPane.showMessageDialog(this, "Las imagenes tienen que tener un ancho y largo menor que 48", "Problema", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void cmbTipoObstaculoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoObstaculoItemStateChanged
+        if (cmbTipoObstaculo.getSelectedIndex() > -1) {
+            btnSeleccionar.setEnabled(true);
+        } else {
+            lblFotoObstaculo.setIcon(null);
+        }
+    }//GEN-LAST:event_cmbTipoObstaculoItemStateChanged
+
+    private void lstEstructurasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstEstructurasValueChanged
+        Building element = (Building) lstEstructuras.getSelectedValue();
+        cmbTipoObstaculo.setSelectedItem(element);
+        lblFotoObstaculo.setIcon(null);
+        txtNombre.setText(element.getName());
+        spnVida.setValue(element.getHP());
+        spnNivel.setValue(1);
+    }//GEN-LAST:event_lstEstructurasValueChanged
 
     /**
      * @param args the command line arguments
@@ -529,38 +978,70 @@ public class ConfigurationFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton btnPartida;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox cmbTipo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox cmbTipoObstaculo;
+    private javax.swing.JComboBox cmbTipoSoldado;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblAtaque;
+    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblEspacio;
+    private javax.swing.JLabel lblFotoObstaculo;
+    private javax.swing.JLabel lblFotoSoldado;
+    private javax.swing.JLabel lblNivel;
+    private javax.swing.JLabel lblNivelObstaculo;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreObstaculo;
+    private javax.swing.JLabel lblNombreSoldado;
+    private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblTipoObstaculo;
+    private javax.swing.JLabel lblTipoSoldado;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblVelocidad;
+    private javax.swing.JLabel lblVida;
+    private javax.swing.JLabel lblVidaObstaculo;
     private javax.swing.JList lstEstructuras;
     private javax.swing.JList lstPartidas;
     private javax.swing.JList lstSoldados;
     private javax.swing.JList lstUsuarios;
+    private javax.swing.JPanel pnlAcciones;
+    private javax.swing.JPanel pnlCambios;
     private javax.swing.JPanel pnlEstructuras;
     private javax.swing.JPanel pnlEstructurasInformacion;
+    private javax.swing.JPanel pnlFotoObstaculo;
+    private javax.swing.JPanel pnlFotoSoldado;
     private javax.swing.JPanel pnlInformacion;
+    private javax.swing.JPanel pnlIniciar;
+    private javax.swing.JPanel pnlJuego;
     private javax.swing.JPanel pnlOpciones;
     private javax.swing.JPanel pnlOperacion;
-    private javax.swing.JPanel pnlPartidaImagen;
     private javax.swing.JPanel pnlSoldados;
     private javax.swing.JPanel pnlSoldadosInformacion;
     private javax.swing.JPanel pnlUsuarios;
+    private javax.swing.JSpinner spnAtaque;
+    private javax.swing.JSpinner spnEspacio;
+    private javax.swing.JSpinner spnNivel;
+    private javax.swing.JSpinner spnNivelObstaculo;
+    private javax.swing.JSpinner spnVelocidad;
+    private javax.swing.JSpinner spnVida;
+    private javax.swing.JSpinner spnVidaObstaculo;
     private javax.swing.JTabbedPane tbpGame;
     private javax.swing.JTabbedPane tbpModulos;
+    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreObstaculo;
+    private javax.swing.JTextField txtNombreSoldado;
     // End of variables declaration//GEN-END:variables
 }
