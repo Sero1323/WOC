@@ -54,6 +54,8 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         spnAtaque.setValue(1);
         spnVelocidad.setValue(1);
         spnNivel.setValue(1);
+        spnJugadorSoldado.setValue(1);
+        spnCosto.setValue(1);
     }
     
     private void limpiarObstaculos() {
@@ -62,6 +64,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         txtNombreObstaculo.setText("");
         spnVida.setValue(1);
         spnNivel.setValue(1);
+        spnlJugadorObstaculo.setValue(1);
     }
     
     /**
@@ -170,10 +173,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         });
 
         lstPartidas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lstPartidas.setModel(new javax.swing.AbstractListModel<GameFrame>() {
-            ArrayList<GameFrame> plays = information.getGames();
+        lstPartidas.setModel(new javax.swing.AbstractListModel<InGameFrame>() {
+            ArrayList<InGameFrame> plays = information.getGames();
             public int getSize() { return plays.size(); }
-            public GameFrame getElementAt(int i) { return plays.get(i); }
+            public InGameFrame getElementAt(int i) { return plays.get(i); }
         });
         lstPartidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstPartidas.setMinimumSize(new java.awt.Dimension(250, 500));
@@ -889,7 +892,9 @@ public class ConfigurationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPartidaActionPerformed
 
     private void lstPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPartidasValueChanged
-        
+        InGameFrame game = (InGameFrame) lstPartidas.getSelectedValue();
+        game.setVisible(true);
+        dispose();
     }//GEN-LAST:event_lstPartidasValueChanged
 
     private void lstUsuariosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuariosValueChanged
@@ -928,8 +933,11 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             } else {
                 if (tbpGame.getSelectedIndex() == 0) {
                     Soldier character = (Soldier) lstSoldados.getSelectedValue();
+                    character.setName(txtNombreSoldado.getText());
+                    Loader.getManager().saveSoldiers();
                 } else {
                     Building place = (Building) lstEstructuras.getSelectedValue();
+                    Loader.getManager().saveBuildings();
                 }
             }
         }
@@ -969,10 +977,12 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             if (tbpGame.getSelectedIndex() == 0) {
                 Soldier character = (Soldier) lstSoldados.getSelectedValue();
                 Loader.getManager().getSoldiers().remove(character);
+                Loader.getManager().saveSoldiers();
                 limpiarSoldados();
             } else {
                 Building place = (Building) lstEstructuras.getSelectedValue();
                 Loader.getManager().getBuildings().remove(place);
+                Loader.getManager().saveBuildings();
                 limpiarObstaculos();
             }
         }

@@ -6,14 +6,18 @@
 
 package logic;
 
-import data.GameFile;
-import graphic_woc.GameFrame;
+import graphic_woc.InGameFrame;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -22,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author Felipe
  */
-public class Match extends AbstractManager<GameFrame> {
+public class Match extends AbstractManager<InGameFrame> {
 
     private static Match manager;
     
@@ -31,8 +35,8 @@ public class Match extends AbstractManager<GameFrame> {
     }
     
     @Override
-    public ArrayList<GameFrame> find(String condition) {
-        ArrayList<GameFrame> list = new ArrayList<GameFrame>();
+    public ArrayList<InGameFrame> find(String condition) {
+        ArrayList<InGameFrame> list = new ArrayList<InGameFrame>();
         ResultSet data = db.find("idPartida, nombre, idUsuario_fk", condition);
         InputStream file = null;
         BufferedInputStream buffer = null;
@@ -42,7 +46,7 @@ public class Match extends AbstractManager<GameFrame> {
                 file = new FileInputStream(data.getString("nombre"));
                 buffer = new BufferedInputStream(file);
                 stream = new ObjectInputStream(buffer);
-                list.add((GameFrame) stream.readObject());
+                list.add((InGameFrame) stream.readObject());
                 stream.close();
                 buffer.close();
                 file.close();
@@ -95,6 +99,20 @@ public class Match extends AbstractManager<GameFrame> {
         } catch (Exception e) {
         }
         return fileNames;
+    }
+    
+    public void saveGame(String name, InGameFrame match) {
+        File location = new File("juegos/" + name);
+        OutputStream file = null;
+        BufferedOutputStream buffer = null;
+        ObjectOutput stream = null;
+        try {
+            file = new FileOutputStream(location);
+            buffer = new BufferedOutputStream(file);
+            stream = new ObjectOutputStream(buffer);
+            stream.writeObject(match);
+        } catch (Exception e) {
+        }
     }
     
     public static Match getManager() {
