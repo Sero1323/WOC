@@ -15,6 +15,11 @@ import woc.Castle;
 import woc.Celd;
 import static javax.swing.JOptionPane.showMessageDialog;
 import woc.ArmyCamp;
+import woc.ArrowTower;
+import woc.Bomb;
+import woc.Canon;
+import woc.TownHall;
+import woc.Wall;
 /**
  *
  * @author Sergio
@@ -142,7 +147,28 @@ public class InGameFrame extends javax.swing.JFrame  {
         this.setVisible(false);
         InGameFrame n = new InGameFrame();
         n.jButton1.setVisible(false);
-        
+        n.setVisible(true);
+        n.newBuilding = new TownHall("TownHall", 0, 0, 0,  5000, 5000, 1, n.castle);
+        n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+        while(this.castle.dungeonlevel>0)
+        {
+            n.newBuilding = new Canon(10, 20, 1000, true, false, "Canon", 0, 0, 0, 1000, 1000, 1, castle);
+            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            
+            n.newBuilding =  new Bomb("Bomb", 0, 0, 0, 1, 1, 1000, 1000, 0, castle, 500);
+            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            
+            n.newBuilding =  new ArrowTower(10, 20, 1000, true, false, "Canon", 0, 0, 0, 1000, 1000, 1, castle);
+            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            int i = 10;
+            while(i>0)
+            {
+            n.newBuilding =  new Wall("Wall", 0, 0, 0,  5000, 5000, 1, castle);
+            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            i--;
+            }
+            Castle.dungeonlevel--;
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

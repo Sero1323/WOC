@@ -14,7 +14,8 @@ import javax.swing.ImageIcon;
  *
  * @author Sergio
  */
-public class ArmyCamp extends Building{
+public class ArmyCamp extends Building
+{
     private int warriorsNumb;
     private int maxWarriors;
     private ArrayList <Soldier> soldiers;
@@ -26,8 +27,6 @@ public class ArmyCamp extends Building{
         this.maxWarriors= maxWarriors;
         
     }
-
-        
 
     public ArmyCamp() {
     }
@@ -44,9 +43,7 @@ public class ArmyCamp extends Building{
     public int getMaxWarriors() {
         return maxWarriors;
     }
-    
 
-    
     public boolean addSoldier(int type)
     {
         Soldier s;
@@ -73,6 +70,5 @@ public class ArmyCamp extends Building{
         this.house.frame.getContentPane().add(s.label,0);
         s.label.repaint();
         return true;
-        
     }
 }
