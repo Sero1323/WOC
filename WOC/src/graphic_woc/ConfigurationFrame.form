@@ -135,7 +135,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.AbstractListModel&lt;GameFrame&gt;() {&#xa;    ArrayList&lt;GameFrame&gt; plays = information.getGames();&#xa;    public int getSize() { return plays.size(); }&#xa;    public GameFrame getElementAt(int i) { return plays.get(i); }&#xa;}" type="code"/>
+                  <Connection code="new javax.swing.AbstractListModel&lt;graphic_woc.InGameFrame&gt;() {&#xa;    ArrayList&lt;graphic_woc.InGameFrame&gt; plays = information.getGames();&#xa;    public int getSize() { return plays.size(); }&#xa;    public graphic_woc.InGameFrame getElementAt(int i) { return plays.get(i); }&#xa;}" type="code"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="1"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

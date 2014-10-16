@@ -23,7 +23,7 @@ public class BuildingsFrame extends javax.swing.JFrame {
     private final InGameFrame g;
 
     /**
-     * Creates new form InGameFrame
+     * Creates new form InGameFrame2
      * @param g
      */
 

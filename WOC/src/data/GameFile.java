@@ -6,7 +6,7 @@
 
 package data;
 
-import graphic_woc.GameFrame;
+import graphic_woc.InGameFrame;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,18 +23,18 @@ import woc.Soldier;
  */
 public class GameFile {
     
-    public static ArrayList<GameFrame> loadMatches(ArrayList<String> files) {
+    public static ArrayList<InGameFrame> loadMatches(ArrayList<String> files) {
         InputStream data = null;
         BufferedInputStream buffer = null;
         ObjectInput stream = null;
-        ArrayList<GameFrame> plays = new ArrayList<GameFrame>();
+        ArrayList<InGameFrame> plays = new ArrayList<InGameFrame>();
         int length = files.size();
         for (int i = 0; i < length; i++) {
             try {
                 data = new FileInputStream(files.get(i));
                 buffer = new BufferedInputStream(data);
                 stream = new ObjectInputStream(buffer);
-                plays.add((GameFrame) stream.readObject());
+                plays.add((InGameFrame) stream.readObject());
                 data.close();
                 buffer.close();
                 stream.close();

@@ -8,7 +8,7 @@
 package woc;
 
 import graphic_woc.BuildingsFrame;
-import graphic_woc.GameFrame;
+import graphic_woc.InGameFrame;
 
 /**
  *
@@ -21,7 +21,7 @@ public class WOC {
     public static void main(String[] args)
     {
         
-        GameFrame g = new GameFrame();
+        InGameFrame g = new InGameFrame();
         g.setVisible(true);
 
     }

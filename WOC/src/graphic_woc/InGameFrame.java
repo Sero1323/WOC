@@ -65,9 +65,7 @@ public class InGameFrame extends javax.swing.JFrame  {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 750));
         setMinimumSize(new java.awt.Dimension(1280, 750));
-        setPreferredSize(new java.awt.Dimension(1280, 750));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

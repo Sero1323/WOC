@@ -162,10 +162,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         });
 
         lstPartidas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lstPartidas.setModel(new javax.swing.AbstractListModel<GameFrame>() {
-            ArrayList<GameFrame> plays = information.getGames();
+        lstPartidas.setModel(new javax.swing.AbstractListModel<InGameFrame>() {
+            ArrayList<InGameFrame> plays = information.getGames();
             public int getSize() { return plays.size(); }
-            public GameFrame getElementAt(int i) { return plays.get(i); }
+            public InGameFrame getElementAt(int i) { return plays.get(i); }
         });
         lstPartidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstPartidas.setMinimumSize(new java.awt.Dimension(250, 500));

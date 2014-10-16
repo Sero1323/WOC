@@ -7,7 +7,7 @@
 package logic;
 
 import data.GameFile;
-import graphic_woc.GameFrame;
+import graphic_woc.InGameFrame;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Felipe
  */
-public class Match extends AbstractManager<GameFrame> {
+public class Match extends AbstractManager<InGameFrame> {
 
     private static Match manager;
     
@@ -31,8 +31,8 @@ public class Match extends AbstractManager<GameFrame> {
     }
     
     @Override
-    public ArrayList<GameFrame> find(String condition) {
-        ArrayList<GameFrame> list = new ArrayList<GameFrame>();
+    public ArrayList<InGameFrame> find(String condition) {
+        ArrayList<InGameFrame> list = new ArrayList<InGameFrame>();
         ResultSet data = db.find("idPartida, nombre, idUsuario_fk", condition);
         InputStream file = null;
         BufferedInputStream buffer = null;
@@ -42,7 +42,7 @@ public class Match extends AbstractManager<GameFrame> {
                 file = new FileInputStream(data.getString("nombre"));
                 buffer = new BufferedInputStream(file);
                 stream = new ObjectInputStream(buffer);
-                list.add((GameFrame) stream.readObject());
+                list.add((InGameFrame) stream.readObject());
                 stream.close();
                 buffer.close();
                 file.close();
