@@ -8,16 +8,11 @@ package logic;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import woc.Building;
@@ -116,34 +111,6 @@ public class Loader {
         } catch (Exception e) {
         }
         return true;
-    }
-    
-    public void saveSoldiers() {
-        OutputStream file = null;
-        BufferedOutputStream buffer = null;
-        ObjectOutput stream = null;
-        File location = new File("soldados/datos.txt");
-        try {
-            file = new FileOutputStream(location);
-            buffer = new BufferedOutputStream(file);
-            stream = new ObjectOutputStream(buffer);
-            stream.writeObject(soldiers);
-        } catch (Exception e) {
-        }
-    }
-    
-    public void saveBuildings() {
-        OutputStream file = null;
-        BufferedOutputStream buffer = null;
-        ObjectOutput stream = null;
-        File location = new File("estructuras/datos.txt");
-        try {
-            file = new FileOutputStream(location);
-            buffer = new BufferedOutputStream(file);
-            stream = new ObjectOutputStream(buffer);
-            stream.writeObject(buildings);
-        } catch (Exception e) {
-        }
     }
 
     public ArrayList<Soldier> getSoldiers() {

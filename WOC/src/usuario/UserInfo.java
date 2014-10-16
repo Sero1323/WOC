@@ -6,7 +6,7 @@
 
 package usuario;
 
-import graphic_woc.InGameFrame;
+import graphic_woc.GameFrame;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +19,7 @@ public class UserInfo {
     private String usuario;
     private String contrasena;
     private String tipo;
-    private ArrayList<InGameFrame> games;
+    private ArrayList<GameFrame> games;
     
     public UserInfo(int idUsuario, String usuario, String contrasena, String tipo) {
         this.idUsuario = idUsuario;
@@ -60,11 +60,11 @@ public class UserInfo {
         this.tipo = tipo;
     }
 
-    public ArrayList<InGameFrame> getGames() {
+    public ArrayList<GameFrame> getGames() {
         return games;
     }
 
-    public void setGames(ArrayList<InGameFrame> games) {
+    public void setGames(ArrayList<GameFrame> games) {
         this.games = games;
     }
     

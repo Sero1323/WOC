@@ -18,6 +18,7 @@ import woc.ArmyCamp;
 import woc.ArrowTower;
 import woc.Bomb;
 import woc.Canon;
+import woc.Soldier;
 import woc.TownHall;
 import woc.Wall;
 /**
@@ -32,7 +33,8 @@ public class InGameFrame extends javax.swing.JFrame  {
     Building newBuilding;
     BuildingsFrame b;
     SoldiersFrame s;
-
+    Building newBuildingtmp;
+    
     public InGameFrame() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -146,28 +148,49 @@ public class InGameFrame extends javax.swing.JFrame  {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
         InGameFrame n = new InGameFrame();
+        
+        castle.enemy = n.castle;
+        n.castle.enemy = castle;
+        
         n.jButton1.setVisible(false);
+        n.jButton2.setVisible(false);
         n.setVisible(true);
         n.newBuilding = new TownHall("TownHall", 0, 0, 0,  5000, 5000, 1, n.castle);
         n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
-        while(this.castle.dungeonlevel>0)
+        int d =Castle.dungeonlevel;
+        while(d>0)
         {
-            n.newBuilding = new Canon(10, 20, 1000, true, false, "Canon", 0, 0, 0, 1000, 1000, 1, castle);
-            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            n.newBuilding = new Canon(10, 20, 1000, true, false, "Canon", 0, 0, 0, 1000, 1000, 1, n.castle);
+            n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
             
-            n.newBuilding =  new Bomb("Bomb", 0, 0, 0, 1, 1, 1000, 1000, 0, castle, 500);
-            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            n.newBuilding =  new Bomb("Bomb", 0, 0, 0, 1, 1, 1000, 1000, 0, n.castle, 500);
+            n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+
+            n.newBuilding =  new Bomb("Bomb", 0, 0, 0, 1, 1, 1000, 1000, 0, n.castle, 500);
+            n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
             
-            n.newBuilding =  new ArrowTower(10, 20, 1000, true, false, "Canon", 0, 0, 0, 1000, 1000, 1, castle);
-            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+            n.newBuilding =  new ArrowTower(10, 20, 1000, true, false, "ArrowTower", 0, 0, 0, 1000, 1000, 1, n.castle);
+            n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
             int i = 10;
             while(i>0)
             {
-            n.newBuilding =  new Wall("Wall", 0, 0, 0,  5000, 5000, 1, castle);
-            n.addNewBuilding(castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
-            i--;
+                n.newBuilding =  new Wall("Wall", 0, 0, 0,  5000, 5000, 1, n.castle);
+                n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+                i--;
             }
-            Castle.dungeonlevel--;
+
+            n.newBuilding = new ArmyCamp("ArmyCamp", 0, 0, 0, 2, 2, 1000, 1000, 1, n.castle,15);
+            ArmyCamp a= (ArmyCamp)n.addNewBuilding(n.castle.getCelds()[((int)(Math.random() * 13))][((int)(Math.random() * 24))]);
+
+            i = 15;
+            while(i>0)
+            {
+                System.out.println(a.addSoldier(1));
+
+                i--;
+            }
+
+            d--;
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -249,11 +272,11 @@ public class InGameFrame extends javax.swing.JFrame  {
             selectBuilding(c.fill);  
     }
 
-    private void addNewBuilding(Celd c)
+    private Building addNewBuilding(Celd c)
     {
         try
         {
-            Building newBuildingtmp = newBuilding;
+            newBuildingtmp = newBuilding;
             newBuilding = null;
             newBuildingtmp.panel.setLocation(48*c.x, 48*c.y);
             if(newBuildingtmp.getSizeX()== 2)
@@ -289,6 +312,7 @@ public class InGameFrame extends javax.swing.JFrame  {
         {
             showMessageDialog(this, "No puedes ubicar esta estructura aqui", "Warning",0);
         }
+        return newBuildingtmp;
     }
     private void selectBuilding(Building buttonBuilding)
     {

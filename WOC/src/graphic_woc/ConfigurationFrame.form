@@ -75,9 +75,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnPartida" pref="300" max="32767" attributes="0"/>
-                      <Component id="lblUsuario" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" pref="300" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lblUsuario" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="300" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -133,7 +135,7 @@
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.AbstractListModel&lt;InGameFrame&gt;() {&#xa;    ArrayList&lt;InGameFrame&gt; plays = information.getGames();&#xa;    public int getSize() { return plays.size(); }&#xa;    public InGameFrame getElementAt(int i) { return plays.get(i); }&#xa;}" type="code"/>
+                  <Connection code="new javax.swing.AbstractListModel&lt;GameFrame&gt;() {&#xa;    ArrayList&lt;GameFrame&gt; plays = information.getGames();&#xa;    public int getSize() { return plays.size(); }&#xa;    public GameFrame getElementAt(int i) { return plays.get(i); }&#xa;}" type="code"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="1"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -409,39 +411,28 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="pnlFotoSoldado" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
+                                              <Component id="lblTipoSoldado" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="cmbTipoSoldado" min="-2" pref="200" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="lblTipoSoldado" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="cmbTipoSoldado" min="-2" pref="200" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="lblNombreSoldado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblVida" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblEspacio" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblAtaque" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblVelocidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblNivel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblJugadorSoldado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="lblCosto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="spnVida" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <Component id="txtNombreSoldado" min="-2" pref="200" max="-2" attributes="0"/>
-                                                          <Component id="spnEspacio" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <Component id="spnAtaque" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <Component id="spnVelocidad" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                              <Component id="spnCosto" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="spnJugadorSoldado" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="spnNivel" alignment="0" pref="100" max="32767" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                  </Group>
+                                                  <Component id="lblNombreSoldado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblVida" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblEspacio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblAtaque" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblVelocidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblNivel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="spnVida" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="txtNombreSoldado" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <Component id="spnEspacio" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="spnAtaque" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="spnVelocidad" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="spnNivel" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -488,17 +479,7 @@
                                           <Component id="lblNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="spnNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblJugadorSoldado" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spnJugadorSoldado" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblCosto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spnCosto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="177" max="32767" attributes="0"/>
+                                      <EmptySpace pref="229" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -620,7 +601,7 @@
                             <Component class="javax.swing.JComboBox" name="cmbTipoSoldado">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Contacto&quot;, &quot;Medio alcance&quot;, &quot;Aereo&quot;, &quot;Grandes&quot;, &quot;Heroes&quot; })" type="code"/>
+                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Terrestre&quot;, &quot;Aereo&quot; })" type="code"/>
                                 </Property>
                               </Properties>
                               <Events>
@@ -639,30 +620,6 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                                   <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                </Property>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="lblJugadorSoldado">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Nivel Jugador"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JSpinner" name="spnJugadorSoldado">
-                              <Properties>
-                                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                  <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                </Property>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="lblCosto">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Costo"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JSpinner" name="spnCosto">
-                              <Properties>
-                                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                  <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -746,46 +703,34 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
+                                          <Component id="pnlFotoObstaculo" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lblEspacioObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lblNivelObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="spnNivelObstaculo" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="spnEspacioObstaculo" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="lblTipoObstaculo" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="cmbTipoObstaculo" min="-2" pref="200" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="lblJugadorObstaculo" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="spnlJugadorObstaculo" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="pnlFotoObstaculo" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="lblNombreObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblVidaObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="lblNombreObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lblVidaObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lblNivelObstaculo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="txtNombreObstaculo" min="-2" pref="200" max="-2" attributes="0"/>
+                                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                              <Component id="spnNivelObstaculo" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="spnVidaObstaculo" alignment="0" pref="100" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="spnVidaObstaculo" min="-2" pref="100" max="-2" attributes="0"/>
-                                                      <Component id="txtNombreObstaculo" min="-2" pref="200" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="lblTipoObstaculo" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="cmbTipoObstaculo" min="-2" pref="200" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
+                                              <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -810,19 +755,9 @@
                                           <Component id="spnVidaObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblEspacioObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spnEspacioObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblNivelObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spnNivelObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblJugadorObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spnlJugadorObstaculo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblNivelObstaculo" min="-2" max="-2" attributes="0"/>
+                                          <Component id="spnNivelObstaculo" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -928,25 +863,6 @@
                                   <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                                 </Property>
                               </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="lblEspacioObstaculo">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Espacio"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JSpinner" name="spnEspacioObstaculo">
-                              <Properties>
-                                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                  <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                </Property>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="lblJugadorObstaculo">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Nivel Jugador"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JSpinner" name="spnlJugadorObstaculo">
                             </Component>
                           </SubComponents>
                         </Container>

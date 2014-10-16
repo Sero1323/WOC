@@ -54,8 +54,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         spnAtaque.setValue(1);
         spnVelocidad.setValue(1);
         spnNivel.setValue(1);
-        spnJugadorSoldado.setValue(1);
-        spnCosto.setValue(1);
     }
     
     private void limpiarObstaculos() {
@@ -64,7 +62,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         txtNombreObstaculo.setText("");
         spnVida.setValue(1);
         spnNivel.setValue(1);
-        spnlJugadorObstaculo.setValue(1);
     }
     
     /**
@@ -110,10 +107,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         cmbTipoSoldado = new javax.swing.JComboBox();
         lblNivel = new javax.swing.JLabel();
         spnNivel = new javax.swing.JSpinner();
-        lblJugadorSoldado = new javax.swing.JLabel();
-        spnJugadorSoldado = new javax.swing.JSpinner();
-        lblCosto = new javax.swing.JLabel();
-        spnCosto = new javax.swing.JSpinner();
         pnlEstructuras = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         lstEstructuras = new javax.swing.JList();
@@ -129,10 +122,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         txtNombreObstaculo = new javax.swing.JTextField();
         spnVidaObstaculo = new javax.swing.JSpinner();
         spnNivelObstaculo = new javax.swing.JSpinner();
-        lblEspacioObstaculo = new javax.swing.JLabel();
-        spnEspacioObstaculo = new javax.swing.JSpinner();
-        lblJugadorObstaculo = new javax.swing.JLabel();
-        spnlJugadorObstaculo = new javax.swing.JSpinner();
         pnlUsuarios = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
@@ -173,10 +162,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         });
 
         lstPartidas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lstPartidas.setModel(new javax.swing.AbstractListModel<InGameFrame>() {
-            ArrayList<InGameFrame> plays = information.getGames();
+        lstPartidas.setModel(new javax.swing.AbstractListModel<GameFrame>() {
+            ArrayList<GameFrame> plays = information.getGames();
             public int getSize() { return plays.size(); }
-            public InGameFrame getElementAt(int i) { return plays.get(i); }
+            public GameFrame getElementAt(int i) { return plays.get(i); }
         });
         lstPartidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstPartidas.setMinimumSize(new java.awt.Dimension(250, 500));
@@ -203,9 +192,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                    .addGroup(pnlInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlInformacionLayout.setVerticalGroup(
@@ -354,7 +344,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         spnVelocidad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 
-        cmbTipoSoldado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contacto", "Medio alcance", "Aereo", "Grandes", "Heroes" }));
+        cmbTipoSoldado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Terrestre", "Aereo" }));
         cmbTipoSoldado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbTipoSoldadoItemStateChanged(evt);
@@ -365,14 +355,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         spnNivel.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 
-        lblJugadorSoldado.setText("Nivel Jugador");
-
-        spnJugadorSoldado.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
-
-        lblCosto.setText("Costo");
-
-        spnCosto.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-
         javax.swing.GroupLayout pnlSoldadosInformacionLayout = new javax.swing.GroupLayout(pnlSoldadosInformacion);
         pnlSoldadosInformacion.setLayout(pnlSoldadosInformacionLayout);
         pnlSoldadosInformacionLayout.setHorizontalGroup(
@@ -382,33 +364,25 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                 .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlFotoSoldado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
+                        .addComponent(lblTipoSoldado)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbTipoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
                         .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
-                                .addComponent(lblTipoSoldado)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbTipoSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlSoldadosInformacionLayout.createSequentialGroup()
-                                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNombreSoldado)
-                                    .addComponent(lblVida)
-                                    .addComponent(lblEspacio)
-                                    .addComponent(lblAtaque)
-                                    .addComponent(lblVelocidad)
-                                    .addComponent(lblNivel)
-                                    .addComponent(lblJugadorSoldado)
-                                    .addComponent(lblCosto))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spnVida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombreSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spnEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spnAtaque, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(spnVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(spnCosto, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(spnJugadorSoldado, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(spnNivel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lblNombreSoldado)
+                            .addComponent(lblVida)
+                            .addComponent(lblEspacio)
+                            .addComponent(lblAtaque)
+                            .addComponent(lblVelocidad)
+                            .addComponent(lblNivel))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnVida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnAtaque, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         pnlSoldadosInformacionLayout.setVerticalGroup(
@@ -444,15 +418,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                 .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNivel)
                     .addComponent(spnNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJugadorSoldado)
-                    .addComponent(spnJugadorSoldado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlSoldadosInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCosto)
-                    .addComponent(spnCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         cmbTipoSoldado.setSelectedIndex(-1);
@@ -549,12 +515,6 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         spnNivelObstaculo.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 
-        lblEspacioObstaculo.setText("Espacio");
-
-        spnEspacioObstaculo.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
-
-        lblJugadorObstaculo.setText("Nivel Jugador");
-
         javax.swing.GroupLayout pnlEstructurasInformacionLayout = new javax.swing.GroupLayout(pnlEstructurasInformacion);
         pnlEstructurasInformacion.setLayout(pnlEstructurasInformacionLayout);
         pnlEstructurasInformacionLayout.setHorizontalGroup(
@@ -562,35 +522,26 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlFotoObstaculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
                         .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEspacioObstaculo)
-                            .addComponent(lblNivelObstaculo))
-                        .addGap(47, 47, 47)
-                        .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spnNivelObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spnEspacioObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(281, 281, 281))
-                    .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
-                            .addComponent(lblTipoObstaculo)
-                            .addGap(18, 18, 18)
-                            .addComponent(cmbTipoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
-                            .addComponent(lblJugadorObstaculo)
-                            .addGap(18, 18, 18)
-                            .addComponent(spnlJugadorObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
-                            .addComponent(pnlFotoObstaculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addContainerGap())
-                        .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
-                            .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNombreObstaculo)
-                                .addComponent(lblVidaObstaculo))
-                            .addGap(46, 46, 46)
-                            .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(spnVidaObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombreObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
+                                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombreObstaculo)
+                                    .addComponent(lblVidaObstaculo)
+                                    .addComponent(lblNivelObstaculo))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombreObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(spnNivelObstaculo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(spnVidaObstaculo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                            .addGroup(pnlEstructurasInformacionLayout.createSequentialGroup()
+                                .addComponent(lblTipoObstaculo)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbTipoObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 199, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlEstructurasInformacionLayout.setVerticalGroup(
             pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,17 +561,9 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                     .addComponent(lblVidaObstaculo)
                     .addComponent(spnVidaObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEspacioObstaculo)
-                    .addComponent(spnEspacioObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNivelObstaculo)
                     .addComponent(spnNivelObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEstructurasInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJugadorObstaculo)
-                    .addComponent(spnlJugadorObstaculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -892,9 +835,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPartidaActionPerformed
 
     private void lstPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPartidasValueChanged
-        InGameFrame game = (InGameFrame) lstPartidas.getSelectedValue();
-        game.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_lstPartidasValueChanged
 
     private void lstUsuariosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuariosValueChanged
@@ -933,11 +874,8 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             } else {
                 if (tbpGame.getSelectedIndex() == 0) {
                     Soldier character = (Soldier) lstSoldados.getSelectedValue();
-                    character.setName(txtNombreSoldado.getText());
-                    Loader.getManager().saveSoldiers();
                 } else {
                     Building place = (Building) lstEstructuras.getSelectedValue();
-                    Loader.getManager().saveBuildings();
                 }
             }
         }
@@ -977,12 +915,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             if (tbpGame.getSelectedIndex() == 0) {
                 Soldier character = (Soldier) lstSoldados.getSelectedValue();
                 Loader.getManager().getSoldiers().remove(character);
-                Loader.getManager().saveSoldiers();
                 limpiarSoldados();
             } else {
                 Building place = (Building) lstEstructuras.getSelectedValue();
                 Loader.getManager().getBuildings().remove(place);
-                Loader.getManager().saveBuildings();
                 limpiarObstaculos();
             }
         }
@@ -1121,13 +1057,9 @@ public class ConfigurationFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblAtaque;
     private javax.swing.JLabel lblContrasena;
-    private javax.swing.JLabel lblCosto;
     private javax.swing.JLabel lblEspacio;
-    private javax.swing.JLabel lblEspacioObstaculo;
     private javax.swing.JLabel lblFotoObstaculo;
     private javax.swing.JLabel lblFotoSoldado;
-    private javax.swing.JLabel lblJugadorObstaculo;
-    private javax.swing.JLabel lblJugadorSoldado;
     private javax.swing.JLabel lblNivel;
     private javax.swing.JLabel lblNivelObstaculo;
     private javax.swing.JLabel lblNombre;
@@ -1160,16 +1092,12 @@ public class ConfigurationFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSoldadosInformacion;
     private javax.swing.JPanel pnlUsuarios;
     private javax.swing.JSpinner spnAtaque;
-    private javax.swing.JSpinner spnCosto;
     private javax.swing.JSpinner spnEspacio;
-    private javax.swing.JSpinner spnEspacioObstaculo;
-    private javax.swing.JSpinner spnJugadorSoldado;
     private javax.swing.JSpinner spnNivel;
     private javax.swing.JSpinner spnNivelObstaculo;
     private javax.swing.JSpinner spnVelocidad;
     private javax.swing.JSpinner spnVida;
     private javax.swing.JSpinner spnVidaObstaculo;
-    private javax.swing.JSpinner spnlJugadorObstaculo;
     private javax.swing.JTabbedPane tbpGame;
     private javax.swing.JTabbedPane tbpModulos;
     private javax.swing.JTextField txtContrasena;

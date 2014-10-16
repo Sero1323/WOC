@@ -25,7 +25,7 @@ public class Castle implements java.io.Serializable{
     private int gold;
     private Celd[][] celds;
     private ArrayList <Building> buildings;
-    private Castle enemy;
+    public Castle enemy;
     ArmyCamp a;
     public static int dungeonlevel = 1;
 

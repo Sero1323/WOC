@@ -8,6 +8,9 @@ package woc;
 
 import java.awt.image.BufferedImage;
 import static java.lang.Math.abs;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,7 +19,7 @@ import javax.swing.JLabel;
  *
  * @author Sergio
  */
-public class Soldier extends Thread implements Defense{
+public class Soldier{
     private String name;
     private int id;
     private int posX;
@@ -47,7 +50,6 @@ public class Soldier extends Thread implements Defense{
         this.level = level;
         this.terrestrial = terrestrial;
         this.camp = camp;
-
         this.label = new JLabel(icon);
     }
 
@@ -61,23 +63,50 @@ public class Soldier extends Thread implements Defense{
     
     public Defense findTarget()
     {   
+        
         Defense target = null;
+        Celd c = null;
         int dist = Integer.MAX_VALUE;
+        try{
         for (int i = 0; i < house.getEnemy().getSizeX(); i++)
             for (int j = 0; j < house.getEnemy().getSizeY(); j++)
                 if(!house.getEnemy().getCelds()[i][j].content.isEmpty() && abs(i-this.posX)+abs(j-this.posY) < dist)
                     {
-                        dist = abs(i-this.posX)+abs(j-this.posY);
+                        dist = abs(i-this.label.getX()/48)+abs(j-this.label.getY()/48);
                         target = house.getEnemy().getCelds()[i][j].content.get(0);
+                        c=house.getEnemy().getCelds()[i][j];
                     }
+        if(target != null && c!= null)
+            move(target,c);
+        }catch(NullPointerException e){}
         return target;
      }
-    
-    public void attack()
+    private void move(Defense target,Celd c)
+    {
+        if ((c.x == this.label.getX()/48)&&(c.y == this.label.getY()/48))
+            return;
+        if(c.x > this.label.getX()/48)
+            this.label.setAlignmentX(this.label.getX()+1);
+        else
+            this.label.setAlignmentX(this.label.getX()-1);
+        if(c.y > this.label.getY()/48)
+            this.label.setAlignmentY(this.label.getY()+1);
+        else
+            this.label.setAlignmentY(this.label.getY()-1);
+        try
+        {
+        sleep(movementSpeed);
+        } catch (InterruptedException e) {      
+        }
+        this.findTarget();
+    }
+    public boolean attack()
     {
         Defense target = findTarget();
-        try {
-                
+        if (target == null)
+            return false;
+        try
+        {
             while (target != null && target.getHP() > 0)
             {
                 if(target.reduceHP(attackDamage))
@@ -87,39 +116,33 @@ public class Soldier extends Thread implements Defense{
                 }
                 sleep(attackSpeed);
             }
-            
         } catch (InterruptedException | NullPointerException ex) {      
         }
+        return true;
     }
 
-    @Override
     public boolean reduceHP(int ammount) {
         currentHP -= ammount;
         return currentHP <= 0;
     }
 
-    @Override
     public int getHP() {
         return currentHP;
     }
 
-    @Override
     public int getPosX() {
         return posX;
     }
 
-    @Override
     public int getPosY() {
         return posY;
     }
 
-    @Override
     public void delete() {
         this.camp.decWarriorsNumb(this.size);
         this.camp.getSoldiers().remove(this);
     }
 
-    @Override
     public boolean isTerrestrial() {
         return this.terrestrial;
     }
@@ -133,8 +156,26 @@ public class Soldier extends Thread implements Defense{
     }
     
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Soldier{" + "name=" + name + ", id=" + id + ", posX=" + posX + ", posY=" + posY + ", currentHP=" + currentHP + ", maxHP=" + maxHP + ", size=" + size + ", attackDamage=" + attackDamage + ", attackSpeed=" + attackSpeed + ", level=" + level + ", movementSpeed=" + movementSpeed + ", terrestrial=" + terrestrial + ", camp=" + camp + ", house=" + house + ", position=" + position + '}';
     }
+
+        public void run() {
+        while(true)
+        {
+            attack();
+            try {
+                sleep(100);
+            } catch (InterruptedException ex) {
+            }
+        }
+    }
+
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     
 }
