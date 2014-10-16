@@ -27,8 +27,7 @@ public class User extends AbstractManager<UserInfo> {
     @Override
     public ArrayList<UserInfo> find(String condition) {
         ArrayList<UserInfo> list = new ArrayList<UserInfo>();
-        ResultSet data = db.find("idUsuario, nombre, contrasena, tipo", condition);
-        try {
+        try (ResultSet data = db.find("idUsuario, nombre, contrasena, tipo", condition)) {
             while (data.next()) {
                 UserInfo information = new UserInfo(data.getInt("idUsuario"), data.getString("nombre"), 
                                                     data.getString("contrasena"), data.getString("tipo"));
@@ -62,8 +61,7 @@ public class User extends AbstractManager<UserInfo> {
     
     public UserInfo login(String user, String password) {
         UserInfo userData = null;
-        ResultSet data = db.find("idUsuario, nombre, contrasena, tipo", "");
-        try {
+        try (ResultSet data = db.find("idUsuario, nombre, contrasena, tipo", "")) {
             while (data.next()) {
                 if (user.equals(data.getString("nombre")) && password.equals(data.getString("contrasena"))) {
                     int idUsuario = data.getInt("idUsuario");

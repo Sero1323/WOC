@@ -33,11 +33,10 @@ public class Match extends AbstractManager<InGameFrame> {
     @Override
     public ArrayList<InGameFrame> find(String condition) {
         ArrayList<InGameFrame> list = new ArrayList<InGameFrame>();
-        ResultSet data = db.find("idPartida, nombre, idUsuario_fk", condition);
         InputStream file = null;
         BufferedInputStream buffer = null;
         ObjectInput stream = null;
-        try {
+        try (ResultSet data = db.find("idPartida, nombre, idUsuario_fk", condition)) {
             while (data.next()) {
                 file = new FileInputStream(data.getString("nombre"));
                 buffer = new BufferedInputStream(file);
@@ -47,7 +46,6 @@ public class Match extends AbstractManager<InGameFrame> {
                 buffer.close();
                 file.close();
             }
-            data.close();
         } catch (Exception e) {
         }
         return list;
@@ -55,6 +53,7 @@ public class Match extends AbstractManager<InGameFrame> {
     
     @Override
     public void insert(String vals) {
+        System.out.println(vals);
         if (!db.insert("nombre, idUsuario_fk", vals)) {
             JOptionPane.showMessageDialog(null, "Problema al agregar");
         } else {
@@ -63,10 +62,15 @@ public class Match extends AbstractManager<InGameFrame> {
                 location.mkdir();
             }
             String game = vals.split(",")[0];
-            location = new File("juegos/" + game);
+            String name = "";
+            for (int i = 1; i < game.length() - 1; i++) {
+                name += game.charAt(i);
+            }
+            location = new File("juegos/" + name + ".txt");
             try {
                 location.createNewFile();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -87,11 +91,11 @@ public class Match extends AbstractManager<InGameFrame> {
     
     public ArrayList<String> plays(int id) {
         ArrayList<String> fileNames = new ArrayList<String>();
-        ResultSet data = db.find("nombre", "WHERE idUsuario_fk = " + id);
-        try {
+        try (ResultSet data = db.find("nombre", "WHERE idUsuario_fk = " + id)) {
             while (data.next()) {
                 fileNames.add(data.getString("nombre"));
             }
+            data.close();
         } catch (Exception e) {
         }
         return fileNames;

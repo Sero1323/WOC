@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import logic.Loader;
 import logic.Match;
 import logic.User;
+import usuario.Login;
 import woc.Building;
 import woc.Soldier;
 
@@ -162,10 +163,10 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         });
 
         lstPartidas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lstPartidas.setModel(new javax.swing.AbstractListModel<InGameFrame>() {
-            ArrayList<InGameFrame> plays = information.getGames();
+        lstPartidas.setModel(new javax.swing.AbstractListModel<graphic_woc.InGameFrame>() {
+            ArrayList<graphic_woc.InGameFrame> plays = information.getGames();
             public int getSize() { return plays.size(); }
-            public InGameFrame getElementAt(int i) { return plays.get(i); }
+            public graphic_woc.InGameFrame getElementAt(int i) { return plays.get(i); }
         });
         lstPartidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstPartidas.setMinimumSize(new java.awt.Dimension(250, 500));
@@ -183,6 +184,11 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlInformacionLayout = new javax.swing.GroupLayout(pnlInformacion);
         pnlInformacion.setLayout(pnlInformacionLayout);
@@ -192,10 +198,9 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addGroup(pnlInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlInformacionLayout.setVerticalGroup(
@@ -829,8 +834,11 @@ public class ConfigurationFrame extends javax.swing.JFrame {
 
     private void btnPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartidaActionPerformed
         String play = JOptionPane.showInputDialog(this, "Ingrese un identificador para la partida", "Partida", JOptionPane.INFORMATION_MESSAGE);
-        if (!play.equals("")) {
-            Match.getManager().insert(play + "," + information.getIdUsuario());
+        if (play != null && !play.equals("")) {
+            Match.getManager().insert("\"" + play + "\"" + "," + information.getIdUsuario());
+            InGameFrame game = new InGameFrame();
+            game.setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_btnPartidaActionPerformed
 
@@ -851,7 +859,7 @@ public class ConfigurationFrame extends javax.swing.JFrame {
         String data = "";
         if (tipo == 0) {
             if (tbpModulos.getSelectedIndex() == 2) {
-                data = txtNombre.getText() + "," + txtContrasena.getText() + "," + cmbTipo.getSelectedItem();
+                data = "\"" + txtNombre.getText() + "\"" + "," + "\"" + txtContrasena.getText() + "\"" + "," + "\"" + cmbTipo.getSelectedItem() + "\"";
                 if (data.split(",").length == 3) {
                     User.getManager().insert(data);
                 }
@@ -1001,6 +1009,12 @@ public class ConfigurationFrame extends javax.swing.JFrame {
             pnlAdministracion.setVisible(false);
         }
     }//GEN-LAST:event_tbpModulosStateChanged
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+        Login autenticar = new Login();
+        autenticar.setVisible(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
