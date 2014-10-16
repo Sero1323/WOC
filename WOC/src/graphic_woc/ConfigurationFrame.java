@@ -921,7 +921,9 @@ public class ConfigurationFrame extends javax.swing.JFrame {
                     }
                 } else {
                     if (cmbTipoObstaculo.getSelectedIndex() > - 1 && lblFotoObstaculo.getIcon() != null && !txtNombreObstaculo.getText().equals("")) {
-                        Building place = null;
+                        Building place = new Building();
+                        place.setName(txtNombreObstaculo.getText());
+                        place.setMaxHP(Integer.parseInt(spnVidaObstaculo.getValue().toString()));
                     }
                 }
             }

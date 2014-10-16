@@ -22,6 +22,7 @@ public class Building implements Defense{
     private int currentHP;
     private int maxHP;
     private int level;
+    private int levelAvailable;
     Castle house;
     public ImagePane panel;
     public Celd c;
@@ -117,6 +118,26 @@ public class Building implements Defense{
     @Override
     public boolean isTerrestrial() {//Who cares?
         return true;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevelAvailable() {
+        return levelAvailable;
+    }
+
+    public void setLevelAvailable(int levelAvailable) {
+        this.levelAvailable = levelAvailable;
     }
     
 }
